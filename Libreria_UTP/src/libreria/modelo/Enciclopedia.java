@@ -1,4 +1,6 @@
-package Modelo;
+package libreria.modelo;
+
+import libreria.modelo.Libro;
 
 public class Enciclopedia extends Libro {
 

@@ -1,4 +1,4 @@
-package Modelo;
+package libreria.modelo;
 
 public abstract class Libro {
 

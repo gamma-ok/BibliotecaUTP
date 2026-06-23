@@ -1,4 +1,4 @@
-package Modelo;
+package libreria.modelo;
 
 public class LibroTexto extends Libro {
 
