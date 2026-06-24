@@ -1,6 +1,7 @@
 package libreria.vista;
 
 public class frmGestionClientes extends javax.swing.JFrame {
+    private libreria.controlador.ClienteController clienteController = new libreria.controlador.ClienteController();
 
     public frmGestionClientes() {
         initComponents();
