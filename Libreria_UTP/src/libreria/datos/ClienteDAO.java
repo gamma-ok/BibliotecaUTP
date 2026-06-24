@@ -1,6 +1,5 @@
 package libreria.datos;
 
-
 import libreria.modelo.Cliente;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -17,7 +17,7 @@ public class LibroController implements ActionListener {
         this.modelo = modelo;
         this.dao = dao;
         this.vista = vista;
-        this.vista.setController(this); // Necesitamos este método en la vista
+        this.vista.setController(this); // Método en la vista
 
         this.vista.btnGuardar.addActionListener(this);
         this.vista.btnEditar.addActionListener(this);

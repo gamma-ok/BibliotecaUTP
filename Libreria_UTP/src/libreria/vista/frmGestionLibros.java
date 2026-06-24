@@ -133,7 +133,6 @@ public class frmGestionLibros extends javax.swing.JFrame {
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(900, 675));
         setName("frmProductos"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(900, 675));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tituloForm.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -197,11 +196,6 @@ public class frmGestionLibros extends javax.swing.JFrame {
         txtPrecio.setBackground(new java.awt.Color(153, 153, 153));
         txtPrecio.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtPrecio.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
-        txtPrecio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPrecioActionPerformed(evt);
-            }
-        });
         getContentPane().add(txtPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 220, 20));
 
         stock.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -211,11 +205,6 @@ public class frmGestionLibros extends javax.swing.JFrame {
         txtStock.setBackground(new java.awt.Color(153, 153, 153));
         txtStock.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtStock.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
-        txtStock.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtStockActionPerformed(evt);
-            }
-        });
         getContentPane().add(txtStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 260, 220, 20));
 
         anioPublicacion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -239,11 +228,6 @@ public class frmGestionLibros extends javax.swing.JFrame {
         btnGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGuardar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnGuardar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
-            }
-        });
         getContentPane().add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 130, 80, 30));
 
         btnEditar.setBackground(new java.awt.Color(68, 182, 251));
@@ -354,63 +338,56 @@ public class frmGestionLibros extends javax.swing.JFrame {
     private void copyrightMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_copyrightMousePressed
         abrirURL("https://github.com/gamma-ok");
     }//GEN-LAST:event_copyrightMousePressed
-
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        
-    }//GEN-LAST:event_btnGuardarActionPerformed
-
-    private void txtPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPrecioActionPerformed
-
-    private void txtStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtStockActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtStockActionPerformed
     private void txtStockKeyTyped(java.awt.event.KeyEvent evt) {
-    char c = evt.getKeyChar();
-    if (!Character.isDigit(c)) {
-        evt.consume();
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c)) {
+            evt.consume();
+        }
     }
-}
+
     public void limpiarFormulario() {
-    txtIdLibro.setText("");
-    txtTitulo.setText("");
-    txtAutor.setText("");
-    txtPrecio.setText("");
-    txtStock.setText("");
-    cbTipoLibro.setSelectedIndex(0);
-    dateAnioPublicacion.setValue(2026);
-    txtIdLibro.requestFocus();
-}
+        txtIdLibro.setText("");
+        txtTitulo.setText("");
+        txtAutor.setText("");
+        txtPrecio.setText("");
+        txtStock.setText("");
+        cbTipoLibro.setSelectedIndex(0);
+        dateAnioPublicacion.setValue(2026);
+        txtIdLibro.requestFocus();
+    }
+
     public boolean validarCamposVacios() {
-    if (txtIdLibro.getText().trim().isEmpty() || 
-        txtTitulo.getText().trim().isEmpty() || 
-        txtAutor.getText().trim().isEmpty() || 
-        txtPrecio.getText().trim().isEmpty() || 
-        txtStock.getText().trim().isEmpty()) {
-        
-        javax.swing.JOptionPane.showMessageDialog(this, 
-            "Todos los campos son obligatorios. Por favor, complételos.", 
-            "Advertencia", 
-            javax.swing.JOptionPane.WARNING_MESSAGE);
-        return false;
+        if (txtIdLibro.getText().trim().isEmpty()
+                || txtTitulo.getText().trim().isEmpty()
+                || txtAutor.getText().trim().isEmpty()
+                || txtPrecio.getText().trim().isEmpty()
+                || txtStock.getText().trim().isEmpty()) {
+
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Todos los campos son obligatorios. Por favor, complételos.",
+                    "Advertencia",
+                    javax.swing.JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        return true;
     }
-    return true;
-}
+
     private void txtIsbnKeyTyped(java.awt.event.KeyEvent evt) {
-    if (txtIsbn.getText().length() >= 13) {
-        evt.consume();
+        if (txtIsbn.getText().length() >= 13) {
+            evt.consume();
+        }
     }
-}
+
     private void txtPrecioKeyTyped(java.awt.event.KeyEvent evt) {
-    char c = evt.getKeyChar();
-    if (!Character.isDigit(c) && c != '.') {
-        evt.consume();
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c) && c != '.') {
+            evt.consume();
+        }
+        if (c == '.' && txtPrecio.getText().contains(".")) {
+            evt.consume();
+        }
     }
-    if (c == '.' && txtPrecio.getText().contains(".")) {
-        evt.consume();
-    }
-}
+
     public void setController(LibroController controller) {
         this.controller = controller;
     }
