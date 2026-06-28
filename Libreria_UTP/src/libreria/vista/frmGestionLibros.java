@@ -133,6 +133,7 @@ public class frmGestionLibros extends javax.swing.JFrame {
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(900, 675));
         setName("frmProductos"); // NOI18N
+        setPreferredSize(new java.awt.Dimension(900, 675));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tituloForm.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -338,55 +339,6 @@ public class frmGestionLibros extends javax.swing.JFrame {
     private void copyrightMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_copyrightMousePressed
         abrirURL("https://github.com/gamma-ok");
     }//GEN-LAST:event_copyrightMousePressed
-    private void txtStockKeyTyped(java.awt.event.KeyEvent evt) {
-        char c = evt.getKeyChar();
-        if (!Character.isDigit(c)) {
-            evt.consume();
-        }
-    }
-
-    public void limpiarFormulario() {
-        txtIdLibro.setText("");
-        txtTitulo.setText("");
-        txtAutor.setText("");
-        txtPrecio.setText("");
-        txtStock.setText("");
-        cbTipoLibro.setSelectedIndex(0);
-        dateAnioPublicacion.setValue(2026);
-        txtIdLibro.requestFocus();
-    }
-
-    public boolean validarCamposVacios() {
-        if (txtIdLibro.getText().trim().isEmpty()
-                || txtTitulo.getText().trim().isEmpty()
-                || txtAutor.getText().trim().isEmpty()
-                || txtPrecio.getText().trim().isEmpty()
-                || txtStock.getText().trim().isEmpty()) {
-
-            javax.swing.JOptionPane.showMessageDialog(this,
-                    "Todos los campos son obligatorios. Por favor, complételos.",
-                    "Advertencia",
-                    javax.swing.JOptionPane.WARNING_MESSAGE);
-            return false;
-        }
-        return true;
-    }
-
-    private void txtIsbnKeyTyped(java.awt.event.KeyEvent evt) {
-        if (txtIsbn.getText().length() >= 13) {
-            evt.consume();
-        }
-    }
-
-    private void txtPrecioKeyTyped(java.awt.event.KeyEvent evt) {
-        char c = evt.getKeyChar();
-        if (!Character.isDigit(c) && c != '.') {
-            evt.consume();
-        }
-        if (c == '.' && txtPrecio.getText().contains(".")) {
-            evt.consume();
-        }
-    }
 
     public void setController(LibroController controller) {
         this.controller = controller;

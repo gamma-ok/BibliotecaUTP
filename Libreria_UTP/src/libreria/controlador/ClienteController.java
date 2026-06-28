@@ -2,62 +2,91 @@ package libreria.controlador;
 
 import libreria.modelo.Cliente;
 import libreria.datos.ClienteDAO;
-import java.util.List;
+import libreria.vista.frmGestionClientes;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
-public class ClienteController {
-    
-    private final ClienteDAO clienteDAO;
+public class ClienteController implements ActionListener {
+    private final Cliente modelo;
+    private final ClienteDAO dao;
+    private final frmGestionClientes vista;
 
-   
-    public ClienteController() {
-        this.clienteDAO = new ClienteDAO();
-    }
+    public ClienteController(Cliente modelo, ClienteDAO dao, frmGestionClientes vista) {
+        this.modelo = modelo;
+        this.dao = dao;
+        this.vista = vista;
+        this.vista.setController(this);
 
-    public boolean registrarCliente(String dni, String nombre, String apellido, String telefono, String correo) {
+        this.vista.btnGuardar.addActionListener(this);
+        this.vista.btnEditar.addActionListener(this);
+        this.vista.btnEliminar.addActionListener(this);
+        this.vista.btnBuscar.addActionListener(this);
+        this.vista.btnNuevo.addActionListener(this);
         
-        if (dni == null || dni.trim().isEmpty() || dni.length() < 8) {
-            System.out.println("Error: El DNI debe tener un formato válido.");
-            return false;
-        }
-        if (nombre == null || nombre.trim().isEmpty() || apellido == null || apellido.trim().isEmpty()) {
-            System.out.println("Error: El nombre y apellido son obligatorios.");
-            return false;
-        }
-
-     
-        Cliente nuevoCliente = new Cliente(dni.trim(), nombre.trim(), apellido.trim(), telefono.trim(), correo.trim());
-        
-      
-        return clienteDAO.insertar(nuevoCliente);
+        listarTabla();
     }
 
-    
-    public List<Cliente> listarClientes() {
-        return clienteDAO.listar();
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == vista.btnGuardar) {
+            actualizarModeloDesdeVista();
+            if (modelo.validarDatos()) {
+                if (dao.guardar(modelo)) {
+                    JOptionPane.showMessageDialog(null, "Cliente guardado.");
+                    limpiarVista();
+                    listarTabla();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Datos inválidos (DNI 8 dígitos, Celular 9 dígitos).");
+            }
+        } else if (e.getSource() == vista.btnEditar) {
+            actualizarModeloDesdeVista();
+            if (dao.editar(modelo)) {
+                JOptionPane.showMessageDialog(null, "Cliente actualizado.");
+                listarTabla();
+            }
+        } else if (e.getSource() == vista.btnEliminar) {
+            if (dao.eliminar(vista.txtDni.getText())) {
+                JOptionPane.showMessageDialog(null, "Cliente eliminado.");
+                limpiarVista();
+                listarTabla();
+            }
+        } else if (e.getSource() == vista.btnBuscar) {
+            modelo.setDni(vista.txtDni.getText());
+            if (dao.buscar(modelo)) {
+                vista.txtNombre.setText(modelo.getNombre());
+                vista.txtApellido.setText(modelo.getApellido());
+                vista.txtCelular.setText(modelo.getCelular());
+                vista.txtEmail.setText(modelo.getEmail());
+                vista.txtDireccion.setText(modelo.getDireccion());
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró el DNI.");
+            }
+        } else if (e.getSource() == vista.btnNuevo) {
+            limpiarVista();
+        }
     }
 
-   
-    public boolean actualizarCliente(String dni, String nombre, String apellido, String telefono, String correo) {
-        if (dni == null || dni.trim().isEmpty()) {
-            return false;
-        }
-        
-        Cliente clienteActualizado = new Cliente(dni.trim(), nombre.trim(), apellido.trim(), telefono.trim(), correo.trim());
-        return clienteDAO.actualizar(clienteActualizado);
+    private void actualizarModeloDesdeVista() {
+        modelo.setNombre(vista.txtNombre.getText());
+        modelo.setApellido(vista.txtApellido.getText());
+        modelo.setDni(vista.txtDni.getText());
+        modelo.setCelular(vista.txtCelular.getText());
+        modelo.setEmail(vista.txtEmail.getText());
+        modelo.setDireccion(vista.txtDireccion.getText());
     }
 
-    
-    public boolean eliminarCliente(String dni) {
-        if (dni == null || dni.trim().isEmpty()) {
-            return false;
-        }
-        return clienteDAO.eliminar(dni.trim());
+    private void limpiarVista() {
+        vista.limpiar();
     }
 
-    public Cliente buscarCliente(String dni) {
-        if (dni == null || dni.trim().isEmpty()) {
-            return null;
+    private void listarTabla() {
+        DefaultTableModel tbl = (DefaultTableModel) vista.tablaGestionClientes.getModel();
+        tbl.setRowCount(0);
+        for (Cliente c : dao.listar()) {
+            tbl.addRow(new Object[]{c.getNombre(), c.getApellido(), c.getDni(), c.getCelular(), c.getEmail(), c.getDireccion()});
         }
-        return clienteDAO.buscarPorDni(dni.trim());
     }
 }

@@ -35,7 +35,7 @@ public class LibroDAO extends ConexionDB {
             ps.setString(7, l.getIsbn());
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
-            e.printStackTrace(); // Indica si hay un error de SQL
+            e.printStackTrace(); // Esto te dirá si hay un error de SQL real
             return false;
         }
     }
@@ -55,7 +55,7 @@ public class LibroDAO extends ConexionDB {
         String sql = "SELECT * FROM libros";
         try (Connection conn = conectar(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
-                // Instanciación según el tipo
+                // Instanciación según el tipo (puedes expandir esto según tu lógica)
                 Libro l = new Novela(rs.getInt("idLibro"), rs.getString("isbn"), rs.getString("titulo"),
                         rs.getString("autor"), rs.getDouble("precio"), rs.getInt("stock"),
                         rs.getInt("anioPublicacion"), rs.getString("tipoLibro"), "General");
@@ -69,6 +69,7 @@ public class LibroDAO extends ConexionDB {
 
     public boolean buscar(Libro l) {
         String sql = "SELECT * FROM libros WHERE isbn=?";
+        // Cambio realizado aquí: de getConexion() a conectar()
         try (Connection conn = conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, l.getIsbn());
             try (ResultSet rs = ps.executeQuery()) {

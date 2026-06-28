@@ -4,8 +4,11 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.net.URI;
 import javax.swing.JOptionPane;
+import libreria.controlador.ClienteController;
 import libreria.controlador.LibroController;
+import libreria.datos.ClienteDAO;
 import libreria.datos.LibroDAO;
+import libreria.modelo.Cliente;
 import libreria.modelo.Libro;
 import libreria.modelo.Novela;
 
@@ -15,23 +18,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
         initComponents();
         setResizable(false);
         transparenciaButton();
-        
+
         Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("../recursos/management.png")); //icon del frm
         this.setIconImage(icon);
-        
+
         this.setTitle("Gestión de Formularios | By gamma");
         this.setLocationRelativeTo(null);
         this.setSize(470, 600);
     }
-    
-    private void abrirURL(String url) {
-        try {
-            java.awt.Desktop.getDesktop().browse(new URI(url));
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "No se pudo abrir la URL: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-    
+
     public void transparenciaButton() {
         btnGestionLibros.setOpaque(false);
         btnGestionLibros.setContentAreaFilled(false);
@@ -155,31 +150,36 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGestionLibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionLibrosActionPerformed
-        // 1. Instanciamos el modelo, el DAO y la vista
-        // Usamos Novela como instancia concreta para el modelo
+        /*// Instanciar el modelo, el DAO a la vista
+        // Clase hija Novela como instancia para el modelo
         Libro modelo = new Novela(0, "", "", "", 0.0, 0, 2026, "Novela", "General");
         LibroDAO dao = new LibroDAO();
         frmGestionLibros vista = new frmGestionLibros();
 
-        // 2. Instanciamos el controlador
+        // Instanciar el controlador
         LibroController ctrl = new LibroController(modelo, dao, vista);
 
-        // 3. Mostramos la vista
+        // Mostrar vista
         vista.setVisible(true);
         vista.setLocationRelativeTo(null);
-        this.dispose();
+        this.dispose();*/
     }//GEN-LAST:event_btnGestionLibrosActionPerformed
 
     private void btnGestionClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionClientesActionPerformed
-        //Clientes modelo = new Clientes();
-        //ConsultasCliente consulta = new ConsultasCliente();
-        //frmGestionClientes vista = new frmGestionClientes();
+        // Instanciar el modelo, el DAO a la vista
+        // Datos vacíos iniciales para el cliente
+        System.out.println("--- EL BOTON FUE PRESIONADO ---");
+        Cliente modelo = new Cliente(0, "", "", "", "", "", "");
+        ClienteDAO dao = new ClienteDAO();
+        frmGestionClientes vista = new frmGestionClientes();
 
-        //ControlCliente ctrl = new ControlCliente(modelo, consulta, vista);
-        //ctrl.iniciar();
-        
-        //vista.setVisible(true);
-        //this.dispose();
+        // Instanciar el controlador
+        ClienteController ctrl = new ClienteController(modelo, dao, vista);
+
+        // Mostrar vista
+        vista.setVisible(true);
+        vista.setLocationRelativeTo(null);
+        this.dispose();
     }//GEN-LAST:event_btnGestionClientesActionPerformed
 
     private void btnGestionPrestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionPrestamosActionPerformed
@@ -189,10 +189,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         //ControlProveedores ctrl = new ControlProveedores(modelo, consulta, vista);
         //ctrl.iniciar();
-    
         //vista.setVisible(true);
         //this.dispose();
     }//GEN-LAST:event_btnGestionPrestamosActionPerformed
+
+    private void abrirURL(String url) {
+        try {
+            java.awt.Desktop.getDesktop().browse(new URI(url));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No se pudo abrir la URL: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
     private void copyrightMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_copyrightMousePressed
         abrirURL("https://github.com/gamma-ok");
