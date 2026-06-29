@@ -24,7 +24,7 @@ public class ClienteController implements ActionListener {
         this.vista.btnEliminar.addActionListener(this);
         this.vista.btnBuscar.addActionListener(this);
         this.vista.btnNuevo.addActionListener(this);
-        
+
         listarTabla();
     }
 
@@ -37,21 +37,27 @@ public class ClienteController implements ActionListener {
                     JOptionPane.showMessageDialog(null, "Cliente guardado.");
                     limpiarVista();
                     listarTabla();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al guardar en la BD.");
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Datos inválidos (DNI 8 dígitos, Celular 9 dígitos).");
+                JOptionPane.showMessageDialog(null, "Datos invalidos (DNI 8 digitos, Celular 9 digitos).");
             }
         } else if (e.getSource() == vista.btnEditar) {
             actualizarModeloDesdeVista();
             if (dao.editar(modelo)) {
                 JOptionPane.showMessageDialog(null, "Cliente actualizado.");
                 listarTabla();
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al actualizar.");
             }
         } else if (e.getSource() == vista.btnEliminar) {
             if (dao.eliminar(vista.txtDni.getText())) {
                 JOptionPane.showMessageDialog(null, "Cliente eliminado.");
                 limpiarVista();
                 listarTabla();
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al eliminar.");
             }
         } else if (e.getSource() == vista.btnBuscar) {
             modelo.setDni(vista.txtDni.getText());
@@ -62,7 +68,7 @@ public class ClienteController implements ActionListener {
                 vista.txtEmail.setText(modelo.getEmail());
                 vista.txtDireccion.setText(modelo.getDireccion());
             } else {
-                JOptionPane.showMessageDialog(null, "No se encontró el DNI.");
+                JOptionPane.showMessageDialog(null, "No se encontro el DNI.");
             }
         } else if (e.getSource() == vista.btnNuevo) {
             limpiarVista();

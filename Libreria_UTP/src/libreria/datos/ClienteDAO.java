@@ -50,10 +50,11 @@ public class ClienteDAO extends ConexionDB {
     public List<Cliente> listar() {
         List<Cliente> lista = new ArrayList<>();
         String sql = "SELECT * FROM clientes";
-        try (Connection conn = conectar(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+        try (Connection conn = conectar(); PreparedStatement ps = conn.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 Cliente c = new Cliente(rs.getInt("idCliente"), rs.getString("nombre"), rs.getString("apellido"),
-                                        rs.getString("dni"), rs.getString("celular"), rs.getString("email"), rs.getString("direccion"));
+                rs.getString("dni"), rs.getString("celular"), rs.getString("email"), rs.getString("direccion"));
                 lista.add(c);
             }
         } catch (SQLException e) {

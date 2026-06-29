@@ -14,7 +14,8 @@ public class Cliente implements IValidable {
     private String direccion;
 
     // Constructor parametrizado
-    public Cliente(int idCliente, String nombre, String apellido, String dni, String celular, String email, String direccion) {
+    public Cliente(int idCliente, String nombre, String apellido, String dni, String celular,
+            String email, String direccion) {
         this.idCliente = idCliente;
         this.nombre = nombre;
         this.apellido = apellido;

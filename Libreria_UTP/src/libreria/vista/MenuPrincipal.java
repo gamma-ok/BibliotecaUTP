@@ -11,6 +11,9 @@ import libreria.datos.LibroDAO;
 import libreria.modelo.Cliente;
 import libreria.modelo.Libro;
 import libreria.modelo.Novela;
+import libreria.controlador.PrestamoController;
+import libreria.datos.PrestamoDAO;
+import libreria.modelo.Prestamo;
 
 public class MenuPrincipal extends javax.swing.JFrame {
 
@@ -150,19 +153,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGestionLibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionLibrosActionPerformed
-        /*// Instanciar el modelo, el DAO a la vista
-        // Clase hija Novela como instancia para el modelo
-        Libro modelo = new Novela(0, "", "", "", 0.0, 0, 2026, "Novela", "General");
+        Novela modelo = new Novela(0, "", "", "", 0.0, 0, 2026, "Novela", "General");
         LibroDAO dao = new LibroDAO();
         frmGestionLibros vista = new frmGestionLibros();
-
-        // Instanciar el controlador
         LibroController ctrl = new LibroController(modelo, dao, vista);
-
-        // Mostrar vista
+        
         vista.setVisible(true);
         vista.setLocationRelativeTo(null);
-        this.dispose();*/
+        this.dispose();
     }//GEN-LAST:event_btnGestionLibrosActionPerformed
 
     private void btnGestionClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionClientesActionPerformed
@@ -183,14 +181,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGestionClientesActionPerformed
 
     private void btnGestionPrestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionPrestamosActionPerformed
-        //Proveedores modelo = new Proveedores();
-        //ConsultasProveedores consulta = new ConsultasProveedores();
-        //frmGestionPrestamos vista = new frmGestionPrestamos();
-
-        //ControlProveedores ctrl = new ControlProveedores(modelo, consulta, vista);
-        //ctrl.iniciar();
-        //vista.setVisible(true);
-        //this.dispose();
+        libreria.modelo.Prestamo md = new libreria.modelo.Prestamo();
+        libreria.datos.PrestamoDAO dd = new libreria.datos.PrestamoDAO();
+        frmGestionPrestamos vt = new frmGestionPrestamos();
+        libreria.controlador.PrestamoController ct = new libreria.controlador.PrestamoController(md, dd, vt);
+        
+        vt.setVisible(true);
+        vt.setLocationRelativeTo(null);
+        this.dispose();
     }//GEN-LAST:event_btnGestionPrestamosActionPerformed
 
     private void abrirURL(String url) {

@@ -13,7 +13,8 @@ public abstract class Libro {
     private String tipoLibro;
 
     // Constructor parametrizado
-    public Libro(int idLibro, String isbn, String titulo, String autor, double precio, int stock, int anioPublicacion, String tipoLibro) {
+    public Libro(int idLibro, String isbn, String titulo, String autor, double precio,
+            int stock, int anioPublicacion, String tipoLibro) {
         this.idLibro = idLibro;
         this.isbn = isbn;
         this.titulo = titulo;

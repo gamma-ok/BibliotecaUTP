@@ -1,14 +1,63 @@
 package libreria.vista;
 
+import libreria.controlador.PrestamoController;
+
 public class frmGestionPrestamos extends javax.swing.JFrame {
 
     /**
      * Creates new form frmGestionPrestamos
      */
     public frmGestionPrestamos() {
-        initComponents();
-    }
+        setResizable(false);
+        setTitle("Gestión de Préstamos");
+        setLayout(null);
+        setSize(400, 350);
 
+        javax.swing.JLabel lblDni = new javax.swing.JLabel("DNI Cliente:");
+        javax.swing.JLabel lblIsbn = new javax.swing.JLabel("ISBN Libro:");
+        javax.swing.JLabel lblDias = new javax.swing.JLabel("Días de Préstamo:");
+        
+        txtDniCliente = new javax.swing.JTextField();
+        txtIsbnLibro = new javax.swing.JTextField();
+        txtDias = new javax.swing.JTextField();
+        btnRegistrar = new javax.swing.JButton("Registrar Préstamo");
+        btnVolver = new javax.swing.JButton("Volver");
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuPrincipal m = new MenuPrincipal();
+                m.setVisible(true);
+                dispose();
+            }
+        });
+
+        lblDni.setBounds(50, 40, 100, 25);
+        txtDniCliente.setBounds(180, 40, 150, 25);
+        
+        lblIsbn.setBounds(50, 80, 100, 25);
+        txtIsbnLibro.setBounds(180, 80, 150, 25);
+        
+        lblDias.setBounds(50, 120, 120, 25);
+        txtDias.setBounds(180, 120, 150, 25);
+        
+        btnRegistrar.setBounds(50, 190, 150, 30);
+        btnVolver.setBounds(220, 190, 110, 30);
+
+        add(lblDni);
+        add(txtDniCliente);
+        add(lblIsbn);
+        add(txtIsbnLibro);
+        add(lblDias);
+        add(txtDias);
+        add(btnRegistrar);
+        add(btnVolver);
+        
+    }
+    public void setController(libreria.controlador.PrestamoController controller) {
+        this.controller = controller;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -68,7 +117,13 @@ public class frmGestionPrestamos extends javax.swing.JFrame {
             }
         });
     }
-
+    
+public javax.swing.JButton btnRegistrar;
+    public javax.swing.JButton btnVolver;
+    public javax.swing.JTextField txtDias;
+    public javax.swing.JTextField txtDniCliente;
+    public javax.swing.JTextField txtIsbnLibro;
+    private libreria.controlador.PrestamoController controller;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

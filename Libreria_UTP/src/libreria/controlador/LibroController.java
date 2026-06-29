@@ -90,7 +90,8 @@ public class LibroController implements ActionListener {
         DefaultTableModel tbl = (DefaultTableModel) vista.tablaGestionLibros.getModel();
         tbl.setRowCount(0);
         for (Libro l : dao.listar()) {
-            tbl.addRow(new Object[]{l.getIsbn(), l.getTipoLibro(), l.getTitulo(), l.getAutor(), l.getPrecio(), l.getStock(), l.getAnioPublicacion()});
+            tbl.addRow(new Object[]{l.getIsbn(), l.getTipoLibro(), l.getTitulo(),
+                l.getAutor(), l.getPrecio(), l.getStock(), l.getAnioPublicacion()});
         }
     }
 }
