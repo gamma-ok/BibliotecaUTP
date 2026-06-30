@@ -1,8 +1,8 @@
 package libreria.modelo;
 
-import libreria.modelo.IValidable;
+import libreria.modelo.IValidar;
 
-public class Cliente implements IValidable {
+public class Cliente implements IValidar {
 
     // Atribtuso
     private int idCliente;
@@ -14,8 +14,7 @@ public class Cliente implements IValidable {
     private String direccion;
 
     // Constructor parametrizado
-    public Cliente(int idCliente, String nombre, String apellido, String dni, String celular,
-            String email, String direccion) {
+    public Cliente(int idCliente, String nombre, String apellido, String dni, String celular, String email, String direccion) {
         this.idCliente = idCliente;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -23,6 +22,12 @@ public class Cliente implements IValidable {
         this.celular = celular;
         this.email = email;
         this.direccion = direccion;
+    }
+
+    // Constructor parametrizado solo para el ComboBox del frm Prestamo
+    public Cliente(int idCliente, String dni) {
+        this.idCliente = idCliente;
+        this.dni = dni;
     }
 
     // Getters y Setters
@@ -91,5 +96,11 @@ public class Cliente implements IValidable {
         boolean emailValido = (email != null && email.contains("@"));
 
         return dniValido && celularValido && emailValido;
+    }
+
+    // Valor para el Prestamo
+    @Override
+    public String toString() {
+        return this.dni;
     }
 }

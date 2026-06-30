@@ -2,8 +2,9 @@ package libreria.modelo;
 
 import java.time.LocalDate;
 
-public class Prestamo implements IValidable {
+public class Prestamo implements IValidar {
 
+    // Atributos
     private int idPrestamo;
     private Cliente cliente;
     private Libro libro;
@@ -12,9 +13,7 @@ public class Prestamo implements IValidable {
     private String estado;
     private double montoPagado;
 
-    public Prestamo() {
-    }
-
+    // Constructor para REGISTRAR nuevos préstamos (Lógica de formulario)
     public Prestamo(int idPrestamo, Cliente cliente, Libro libro, int diasPrestamo) {
         this.idPrestamo = idPrestamo;
         this.cliente = cliente;
@@ -25,8 +24,9 @@ public class Prestamo implements IValidable {
         this.montoPagado = libro.calcularPrecioFinal();
     }
 
+    // Constructor para RECUPERAR préstamos (Lógica de base de datos)
     public Prestamo(int idPrestamo, Cliente cliente, Libro libro, LocalDate fechaPrestamo,
-                    LocalDate fechaDevolucion, String estado, double montoPagado) {
+            LocalDate fechaDevolucion, String estado, double montoPagado) {
         this.idPrestamo = idPrestamo;
         this.cliente = cliente;
         this.libro = libro;
@@ -36,6 +36,7 @@ public class Prestamo implements IValidable {
         this.montoPagado = montoPagado;
     }
 
+    // Getters y Setters
     public int getIdPrestamo() {
         return idPrestamo;
     }
@@ -68,6 +69,7 @@ public class Prestamo implements IValidable {
         this.estado = estado;
     }
 
+    // Metodo
     @Override
     public boolean validarDatos() {
         return libro != null && cliente != null && libro.getStock() > 0;

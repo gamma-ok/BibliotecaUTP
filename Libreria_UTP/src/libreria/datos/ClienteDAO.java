@@ -18,6 +18,7 @@ public class ClienteDAO extends ConexionDB {
             ps.setString(6, c.getDireccion());
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
+            e.printStackTrace(); // Esto dirá si hay un error de SQL
             return false;
         }
     }
@@ -33,6 +34,7 @@ public class ClienteDAO extends ConexionDB {
             ps.setString(6, c.getDni());
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
+            e.printStackTrace(); // Esto dirá si hay un error de SQL
             return false;
         }
     }
@@ -50,15 +52,14 @@ public class ClienteDAO extends ConexionDB {
     public List<Cliente> listar() {
         List<Cliente> lista = new ArrayList<>();
         String sql = "SELECT * FROM clientes";
-        try (Connection conn = conectar(); PreparedStatement ps = conn.prepareStatement(sql);
-                ResultSet rs = ps.executeQuery()) {
+        try (Connection conn = conectar(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 Cliente c = new Cliente(rs.getInt("idCliente"), rs.getString("nombre"), rs.getString("apellido"),
-                rs.getString("dni"), rs.getString("celular"), rs.getString("email"), rs.getString("direccion"));
+                                        rs.getString("dni"), rs.getString("celular"), rs.getString("email"), rs.getString("direccion"));
                 lista.add(c);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Esto dirá si hay un error de SQL
         }
         return lista;
     }

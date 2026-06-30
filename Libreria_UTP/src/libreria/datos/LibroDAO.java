@@ -8,8 +8,7 @@ import java.util.List;
 public class LibroDAO extends ConexionDB {
 
     public boolean guardar(Libro l) {
-        String sql = "INSERT INTO libros (isbn, titulo, autor, precio, stock, anioPublicacion, tipoLibro)"
-                + " VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO libros (isbn, titulo, autor, precio, stock, anioPublicacion, tipoLibro) VALUES (?,?,?,?,?,?,?)";
         try (Connection conn = conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, l.getIsbn());
             ps.setString(2, l.getTitulo());
@@ -20,13 +19,13 @@ public class LibroDAO extends ConexionDB {
             ps.setString(7, l.getTipoLibro());
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
+            e.printStackTrace(); // Esto dirá si hay un error de SQL
             return false;
         }
     }
 
     public boolean editar(Libro l) {
-        String sql = "UPDATE libros SET titulo=?, autor=?, precio=?, stock=?, anioPublicacion=?,"
-                + " tipoLibro=? WHERE isbn=?";
+        String sql = "UPDATE libros SET titulo=?, autor=?, precio=?, stock=?, anioPublicacion=?, tipoLibro=? WHERE isbn=?";
         try (Connection conn = conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, l.getTitulo());
             ps.setString(2, l.getAutor());
@@ -37,7 +36,7 @@ public class LibroDAO extends ConexionDB {
             ps.setString(7, l.getIsbn());
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
-            e.printStackTrace(); // Esto te dirá si hay un error de SQL real
+            e.printStackTrace(); // Esto dirá si hay un error de SQL
             return false;
         }
     }
@@ -55,8 +54,7 @@ public class LibroDAO extends ConexionDB {
     public List<Libro> listar() {
         List<Libro> lista = new ArrayList<>();
         String sql = "SELECT * FROM libros";
-        try (Connection conn = conectar(); PreparedStatement ps = conn.prepareStatement(sql);
-                ResultSet rs = ps.executeQuery()) {
+        try (Connection conn = conectar(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 // Instanciación según el tipo (puedes expandir esto según tu lógica)
                 Libro l = new Novela(rs.getInt("idLibro"), rs.getString("isbn"), rs.getString("titulo"),
@@ -65,7 +63,7 @@ public class LibroDAO extends ConexionDB {
                 lista.add(l);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Esto dirá si hay un error de SQL
         }
         return lista;
     }
