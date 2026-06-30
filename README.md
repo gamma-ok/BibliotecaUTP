@@ -17,7 +17,7 @@ Este proyecto es una aplicación de escritorio desarrollada en Java que permite 
 - `libreria.vista`: Interfaz gráfica.
 
 ## Diagrama UML
-![Diagrama UML](src/libreria/recursos/Diagrama%20UML%20-%20Libreria.jpg)
+![Diagrama UML](Libreria_UTP/src/libreria/recursos/Diagrama%20UML%20-%20Libreria.jpg)
 
 ## Instalación y Configuración
 1. Clona este repositorio:
