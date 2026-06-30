@@ -20,7 +20,7 @@ public class LibroTexto extends Libro {
     public void setNivelAcademico(String nivelAcademico) {
         this.nivelAcademico = nivelAcademico;
     }
-    
+
     // Metodos
     @Override
     public double calcularPrecioFinal() {

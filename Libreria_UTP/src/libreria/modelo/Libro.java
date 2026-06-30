@@ -91,8 +91,9 @@ public abstract class Libro {
 
     // Metodos abstracto
     public abstract double calcularPrecioFinal();
+
     public abstract String obtenerDetalle();
-    
+
     // Valor para el Prestamo
     @Override
     public String toString() {

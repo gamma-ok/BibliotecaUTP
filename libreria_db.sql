@@ -19,16 +19,16 @@ CREATE TABLE clientes (
     nombre VARCHAR(50) NOT NULL,
     apellido VARCHAR(50) NOT NULL,
     dni VARCHAR(8) UNIQUE NOT NULL,
-    celular VARCHAR(9),
-    email VARCHAR(100),
-    direccion VARCHAR(200)
+    celular VARCHAR(9) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    direccion VARCHAR(200) NOT NULL
 );
 
 -- Tabla: Prestamos (Clase Prestamo)
 CREATE TABLE prestamos (
-    idPrestamo INT AUTO_INCREMENT PRIMARY KEY,
-    idCliente INT,
-    idLibro INT,
+    idPrestamo INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    idCliente INT NOT NULL,
+    idLibro INT NOT NULL,
     fechaPrestamo DATE NOT NULL,
     fechaDevolucion DATE NOT NULL,
     estado VARCHAR(20) NOT NULL,
@@ -57,8 +57,8 @@ INSERT INTO clientes (nombre, apellido, dni, celular, email, direccion) VALUES
 ('Luis', 'Diaz', '55667788', '955444333', 'luis.diaz@email.com', 'Psje. Trujillo 202');
 
 INSERT INTO prestamos (idCliente, idLibro, fechaPrestamo, fechaDevolucion, estado, montoPagado) VALUES
-(1, 1, '2026-06-01', '2026-06-15', 'Entregado', 5.00),
-(2, 2, '2026-06-05', '2026-06-20', 'Pendiente', 0.00),
-(3, 3, '2026-06-10', '2026-06-25', 'Pendiente', 0.00),
-(4, 4, '2026-06-12', '2026-06-27', 'Entregado', 4.50),
-(5, 5, '2026-06-15', '2026-06-30', 'Pendiente', 0.00);
+(1, 1, '2026-06-01', '2026-06-15', 'Activo', 5.00),
+(2, 2, '2026-06-05', '2026-06-20', 'Devuelto', 0.00),
+(3, 3, '2026-06-10', '2026-06-25', 'Vencido', 0.00),
+(4, 4, '2026-06-12', '2026-06-27', 'Activo', 4.50),
+(5, 5, '2026-06-15', '2026-06-30', 'Devuelto', 0.00);

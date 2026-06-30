@@ -6,8 +6,8 @@ public class Novela extends Libro {
     private String genero;
 
     // Constructor parametrizado abstracto
-    public Novela(int idLibro, String isbn, String titulo, String autor, double precio, 
-                  int stock, int anioPublicacion, String tipoLibro, String genero) {
+    public Novela(int idLibro, String isbn, String titulo, String autor, double precio,
+            int stock, int anioPublicacion, String tipoLibro, String genero) {
         super(idLibro, isbn, titulo, autor, precio, stock, anioPublicacion, tipoLibro);
         this.genero = genero;
     }
@@ -24,7 +24,7 @@ public class Novela extends Libro {
     // Metodos
     @Override
     public double calcularPrecioFinal() { // Polimorfismo
-        return this.getPrecio() * 0.85; // Las novelas tienen un 15% de descuento
+        return this.getPrecio() * 0.85; // Tienen un 15% de descuento
     }
 
     @Override

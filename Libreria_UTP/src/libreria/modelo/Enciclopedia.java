@@ -8,8 +8,8 @@ public class Enciclopedia extends Libro {
     private int numeroTomo;
 
     // Constructor parametrizado abstracto
-    public Enciclopedia(int idLibro, String isbn, String titulo, String autor, double precio, 
-                        int stock, int anioPublicacion, String tipoLibro, int numeroTomo) {
+    public Enciclopedia(int idLibro, String isbn, String titulo, String autor, double precio,
+            int stock, int anioPublicacion, String tipoLibro, int numeroTomo) {
         super(idLibro, isbn, titulo, autor, precio, stock, anioPublicacion, tipoLibro);
         this.numeroTomo = numeroTomo;
     }
@@ -26,7 +26,7 @@ public class Enciclopedia extends Libro {
     // Metodos
     @Override
     public double calcularPrecioFinal() {
-        return this.getPrecio() + 10.0; //Las enciclopedias tienen un recargo extra de S/10 por ser material de colección
+        return this.getPrecio() + 10.0; // Tienen un recargo extra de S/10
     }
 
     @Override
