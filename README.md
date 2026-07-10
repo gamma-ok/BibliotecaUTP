@@ -1,4 +1,4 @@
-# Sistema de Gestión de Librería
+# Sistema de Gestión de Biblioteca
 
 ## Descripción
 Este proyecto es una aplicación de escritorio desarrollada en Java que permite la gestión eficiente de los procesos fundamentales de una librería. El sistema sigue el patrón de arquitectura **MVC (Modelo-Vista-Controlador)** y garantiza la integridad de los datos mediante validaciones robustas y el manejo correcto de relaciones entre entidades (Clientes, Libros y Préstamos).
@@ -11,13 +11,13 @@ Este proyecto es una aplicación de escritorio desarrollada en Java que permite 
 * **Arquitectura MVC:** Separación clara de responsabilidades entre la lógica de negocio, la persistencia de datos (DAO) y la interfaz gráfica (Swing).
 
 ## Estructura del Proyecto
-- `libreria.modelo`: Entidades y lógica de negocio.
-- `libreria.datos`: Clases DAO para comunicación con MySQL.
-- `libreria.controlador`: Gestión de eventos y lógica de conexión.
-- `libreria.vista`: Interfaz gráfica.
+- `biblioteca.modelo`: Entidades y lógica de negocio.
+- `biblioteca.datos`: Clases DAO para comunicación con MySQL.
+- `biblioteca.controlador`: Gestión de eventos y lógica de conexión.
+- `biblioteca.vista`: Interfaz gráfica.
 
 ## Diagrama UML
-![Diagrama UML](Libreria_UTP/src/libreria/recursos/Diagrama%20UML%20-%20Libreria.jpg)
+![Diagrama UML](BibliotecaUTP/src/biblioteca/recursos/Diagrama%20UML%20-%20Biblioteca.jpg)
 
 ## Instalación y Configuración
 1. Clona este repositorio:
