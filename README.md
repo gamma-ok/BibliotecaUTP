@@ -20,7 +20,7 @@ Este proyecto es una aplicación de escritorio desarrollada en Java que permite 
 - `biblioteca.recursos`: Recursos gráficos (iconos, imágenes, fondo).
 
 ## Diagrama UML
-![Diagrama UML](BibliotecaUTP/src/biblioteca/recursos/Diagrama%20UML%20-%20Bibliotec.jpg)
+![Diagrama UML](BibliotecaUTP/src/biblioteca/recursos/Diagrama%20UML%20-%20Biblioteca.jpg)
 
 ## Instalación y Configuración
 1. Clona este repositorio:
