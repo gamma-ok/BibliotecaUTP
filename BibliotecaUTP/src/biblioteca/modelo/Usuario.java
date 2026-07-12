@@ -12,8 +12,7 @@ public class Usuario implements IValidar {
     private String direccion;
 
     // Constructor parametrizado
-    public Usuario(int idUsuario, String nombre, String apellido, String dni, 
-                   String celular, String correo, String direccion) {
+    public Usuario(int idUsuario, String nombre, String apellido, String dni, String celular, String correo, String direccion) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.apellido = apellido;

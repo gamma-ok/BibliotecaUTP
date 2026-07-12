@@ -65,8 +65,6 @@ public class CompraProveedorDAO extends ConexionDB {
     }
 
     public boolean modificar(CompraProveedor cp) {
-        // Nota: Modificar una compra es complejo porque afecta el stock
-        // Se recomienda implementar según necesidades específicas
         String sql = "UPDATE compras_proveedor SET idProveedor=?, idLibro=?, fechaCompra=?, cantidad=?, precioCompraUnitario=?, montoTotal=? WHERE idCompra=?";
         try (Connection conn = conectar(); 
              PreparedStatement ps = conn.prepareStatement(sql)) {

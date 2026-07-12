@@ -8,11 +8,11 @@ CREATE TABLE libros (
     isbn VARCHAR(20) NOT NULL,
     titulo VARCHAR(150) NOT NULL,
     autor VARCHAR(100) NOT NULL,
-    precioCompra DOUBLE NOT NULL, -- Precio que se paga al proveedor
-    precioVenta DOUBLE NOT NULL, -- Precio al que prestará
-    cantidad INT NOT NULL, -- Número de ejemplares disponibles
+    precioCompra DOUBLE NOT NULL,
+    precioVenta DOUBLE NOT NULL,
+    cantidad INT NOT NULL,
     anioPublicacion INT NOT NULL,
-    tipoLibro VARCHAR(50) NOT NULL -- 'Novela', 'LibroTexto', 'Enciclopedia'
+    tipoLibro VARCHAR(50) NOT NULL
 );
 
 -- TABLA: PROVEEDORES
@@ -32,9 +32,9 @@ CREATE TABLE compras_proveedor (
     idProveedor INT NOT NULL,
     idLibro INT NOT NULL,
     fechaCompra DATE NOT NULL,
-    cantidad INT NOT NULL,             -- Cuántos compraste en esta ocasión
-    precioCompraUnitario DOUBLE NOT NULL, -- Precio de compra en esta ocasión
-    montoTotal DOUBLE NOT NULL,        -- cantidad × precioCompraUnitario
+    cantidad INT NOT NULL,
+    precioCompraUnitario DOUBLE NOT NULL,
+    montoTotal DOUBLE NOT NULL,
     FOREIGN KEY (idProveedor) REFERENCES proveedores(idProveedor),
     FOREIGN KEY (idLibro) REFERENCES libros(idLibro)
 );
@@ -57,8 +57,8 @@ CREATE TABLE prestamos (
     idLibro INT NOT NULL,
     fechaPrestamo DATE NOT NULL,
     fechaDevolucion DATE NOT NULL,
-    estado VARCHAR(20) NOT NULL,  -- 'Activo', 'Devuelto', 'Vencido'
-    montoPagado DOUBLE NOT NULL,  -- Costo del préstamo
+    estado VARCHAR(20) NOT NULL,
+    montoPagado DOUBLE NOT NULL,
     FOREIGN KEY (idUsuario) REFERENCES usuarios(idUsuario),
     FOREIGN KEY (idLibro) REFERENCES libros(idLibro)
 );

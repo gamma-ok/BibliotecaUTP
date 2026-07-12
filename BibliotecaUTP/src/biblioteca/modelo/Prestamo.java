@@ -59,14 +59,14 @@ public class Prestamo implements IValidar {
     public String getEstado() {
         return estado;
     }
-
-    public double getMontoPagado() {
-        return montoPagado;
-    }
-
+    
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    public double getMontoPagado() {
+        return montoPagado;
+    }    
 
     @Override
     public boolean validarDatos() {

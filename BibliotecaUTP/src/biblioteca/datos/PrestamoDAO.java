@@ -16,7 +16,7 @@ public class PrestamoDAO extends ConexionDB {
             conn = conectar();
             conn.setAutoCommit(false);
 
-            // 1Registrar el préstamo
+            // Registrar el préstamo
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
                 ps.setInt(1, p.getUsuario().getIdUsuario());
                 ps.setInt(2, p.getLibro().getIdLibro());
