@@ -5,10 +5,9 @@ public class Novela extends Libro {
     // Atributo
     private String genero;
 
-    // Constructor parametrizado abstracto
-    public Novela(int idLibro, String isbn, String titulo, String autor, double precio,
-            int stock, int anioPublicacion, String tipoLibro, String genero) {
-        super(idLibro, isbn, titulo, autor, precio, stock, anioPublicacion, tipoLibro);
+    // Constructor parametrizado
+    public Novela(int idLibro, String isbn, String titulo, String autor, double precioCompra, double precioVenta, int cantidad, int anioPublicacion, String tipoLibro, String genero) {
+        super(idLibro, isbn, titulo, autor, precioCompra, precioVenta, cantidad, anioPublicacion, tipoLibro);
         this.genero = genero;
     }
 
@@ -23,12 +22,12 @@ public class Novela extends Libro {
 
     // Metodos
     @Override
-    public double calcularPrecioFinal() { // Polimorfismo
-        return this.getPrecio() * 0.85; // Tienen un 15% de descuento
+    public double calcularPrecioFinal() {
+        return this.getPrecioVenta() * 0.85; // 15% de descuento sobre el precio de venta
     }
 
     @Override
-    public String obtenerDetalle() { // toString
+    public String obtenerDetalle() {
         return "Novela de género: " + genero + " - Título: " + getTitulo();
     }
 }

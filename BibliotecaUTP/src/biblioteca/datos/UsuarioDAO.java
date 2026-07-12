@@ -33,7 +33,7 @@ public class UsuarioDAO extends ConexionDB {
             ps.setString(6, c.getDni());
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
-            e.printStackTrace(); // Esto dirá si hay un error de SQL
+            e.printStackTrace();
             return false;
         }
     }
@@ -51,7 +51,9 @@ public class UsuarioDAO extends ConexionDB {
     public List<Usuario> listar() {
         List<Usuario> lista = new ArrayList<>();
         String sql = "SELECT * FROM usuarios";
-        try (Connection conn = conectar(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+        try (Connection conn = conectar(); 
+             PreparedStatement ps = conn.prepareStatement(sql); 
+             ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 Usuario c = new Usuario(
                         rs.getInt("idUsuario"), 
@@ -64,7 +66,7 @@ public class UsuarioDAO extends ConexionDB {
                 lista.add(c);
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Esto dirá si hay un error de SQL
+            e.printStackTrace();
         }
         return lista;
     }

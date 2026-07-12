@@ -268,7 +268,7 @@
             <StringItem index="0" value="Seleccione..."/>
             <StringItem index="1" value="Devuelto"/>
             <StringItem index="2" value="Pendiente"/>
-            <StringItem index="3" value="Retrasado"/>
+            <StringItem index="3" value="Vencido"/>
           </StringArray>
         </Property>
       </Properties>

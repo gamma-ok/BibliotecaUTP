@@ -8,6 +8,7 @@ import biblioteca.datos.CompraProveedorDAO;
 import biblioteca.datos.LibroDAO;
 import biblioteca.vista.frmGestionCompras;
 import java.awt.event.*;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
@@ -44,7 +45,7 @@ public class CompraProveedorController implements ActionListener {
         vista.btnEliminar.addActionListener(this);
         vista.btnNuevo.addActionListener(e -> limpiarFormulario());
 
-        // Listeners para calcular el monto total automáticamente (más dinámico)
+        // Listeners para calcular el monto total automáticamente
         java.awt.event.KeyAdapter keyAdapter = new java.awt.event.KeyAdapter() {
             @Override
             public void keyReleased(java.awt.event.KeyEvent e) {
@@ -52,7 +53,7 @@ public class CompraProveedorController implements ActionListener {
             }
         };
         vista.txtCantidad.addKeyListener(keyAdapter);
-        vista.txtPrecioUnitario.addKeyListener(keyAdapter);
+        vista.txtPrecioCompraUnitario.addKeyListener(keyAdapter);
 
         listarTabla();
     }
@@ -61,7 +62,7 @@ public class CompraProveedorController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == vista.cbRucProveedor || e.getSource() == vista.cbIsbnLibro) {
             actualizarInformacion();
-        } else if (e.getSource() == vista.txtCantidad || e.getSource() == vista.txtPrecioUnitario) {
+        } else if (e.getSource() == vista.txtCantidad || e.getSource() == vista.txtPrecioCompraUnitario) {
             calcularMontoTotal();
         } else if (e.getSource() == vista.btnGuardar) {
             if (esValido()) {
@@ -81,7 +82,7 @@ public class CompraProveedorController implements ActionListener {
     private void calcularMontoTotal() {
         try {
             String cantidadStr = vista.txtCantidad.getText().trim();
-            String precioStr = vista.txtPrecioUnitario.getText().trim();
+            String precioStr = vista.txtPrecioCompraUnitario.getText().trim();
 
             if (!cantidadStr.isEmpty() && !precioStr.isEmpty()) {
                 int cantidad = Integer.parseInt(cantidadStr);
@@ -98,9 +99,9 @@ public class CompraProveedorController implements ActionListener {
         // Validar campos obligatorios
         if (vista.cbRucProveedor.getSelectedIndex() <= 0
                 || vista.cbIsbnLibro.getSelectedIndex() <= 0
-                || vista.dtFechaEntrega.getDate() == null
+                || vista.dtFechaCompra.getDate() == null
                 || vista.txtCantidad.getText().trim().isEmpty()
-                || vista.txtPrecioUnitario.getText().trim().isEmpty()) {
+                || vista.txtPrecioCompraUnitario.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(vista, "Todos los campos son obligatorios.");
             return false;
         }
@@ -114,35 +115,19 @@ public class CompraProveedorController implements ActionListener {
             }
 
             // Validar que precio sea número positivo
-            double precio = Double.parseDouble(vista.txtPrecioUnitario.getText().trim());
+            double precio = Double.parseDouble(vista.txtPrecioCompraUnitario.getText().trim());
             if (precio <= 0) {
                 JOptionPane.showMessageDialog(vista, "El precio unitario debe ser mayor a 0.");
                 return false;
             }
 
-            // Validación de stock disponible
-            String isbn = vista.cbIsbnLibro.getSelectedItem().toString();
-            Libro libro = mapaLibros.get(isbn);
-            if (libro != null) {
-                int stockActual = libro.getStock();
-                if (cantidad > stockActual) {
-                    JOptionPane.showMessageDialog(vista,
-                            "No hay suficiente stock.\n"
-                            + "Stock disponible: " + stockActual + "\n"
-                            + "Cantidad solicitada: " + cantidad,
-                            "Alerta",
-                            JOptionPane.WARNING_MESSAGE);
-                    return false;
-                }
-            }
-
-            // Validar que la fecha de entrega no sea en el pasado
-            LocalDate fechaEntrega = vista.dtFechaEntrega.getDate().toInstant()
+            // Validar que la fecha no sea en el pasado
+            LocalDate fechaCompra = vista.dtFechaCompra.getDate().toInstant()
                     .atZone(ZoneId.systemDefault()).toLocalDate();
             LocalDate hoy = LocalDate.now();
 
-            if (fechaEntrega.isBefore(hoy)) {
-                JOptionPane.showMessageDialog(vista, "La fecha de entrega no puede ser anterior a hoy.");
+            if (fechaCompra.isBefore(hoy)) {
+                JOptionPane.showMessageDialog(vista, "La fecha de compra no puede ser anterior a hoy.");
                 return false;
             }
 
@@ -172,6 +157,8 @@ public class CompraProveedorController implements ActionListener {
                 JOptionPane.showMessageDialog(vista, "Compra registrada exitosamente.");
                 limpiarFormulario();
                 listarTabla();
+                // Actualizar combos para reflejar nuevo stock
+                actualizarCombos();
             } else {
                 JOptionPane.showMessageDialog(vista, "Error al guardar la compra.");
             }
@@ -202,9 +189,10 @@ public class CompraProveedorController implements ActionListener {
         if (confirm == JOptionPane.YES_OPTION) {
             int id = Integer.parseInt(vista.txtIdCompra.getText());
             if (cpDao.eliminar(id)) {
-                JOptionPane.showMessageDialog(vista, "Compra eliminado correctamente.");
+                JOptionPane.showMessageDialog(vista, "Compra eliminada correctamente.");
                 limpiarFormulario();
                 listarTabla();
+                actualizarCombos();
             }
         }
     }
@@ -212,12 +200,12 @@ public class CompraProveedorController implements ActionListener {
     private CompraProveedor crearCompraDesdeVista(int id) {
         Proveedor p = mapaProveedores.get(vista.cbRucProveedor.getSelectedItem());
         Libro l = mapaLibros.get(vista.cbIsbnLibro.getSelectedItem());
-        LocalDate fechaEntrega = vista.dtFechaEntrega.getDate().toInstant()
+        LocalDate fechaCompra = vista.dtFechaCompra.getDate().toInstant()
                 .atZone(ZoneId.systemDefault()).toLocalDate();
         int cantidad = Integer.parseInt(vista.txtCantidad.getText().trim());
-        double precioUnitario = Double.parseDouble(vista.txtPrecioUnitario.getText().trim());
+        double precioCompraUnitario = Double.parseDouble(vista.txtPrecioCompraUnitario.getText().trim());
 
-        return new CompraProveedor(id, p, l, fechaEntrega, cantidad, precioUnitario);
+        return new CompraProveedor(id, p, l, fechaCompra, cantidad, precioCompraUnitario);
     }
 
     private void actualizarInformacion() {
@@ -227,19 +215,39 @@ public class CompraProveedorController implements ActionListener {
         if (ruc != null && !ruc.equals("Seleccione...") && isbn != null && !isbn.equals("Seleccione...")) {
             Proveedor p = mapaProveedores.get(ruc);
             Libro l = mapaLibros.get(isbn);
-            vista.taInformacion.setText(
-                            "PROVEEDOR:" + 
-                            "\nRUC Proveedor: " + ruc + 
-                            "\nNombre: " + p.getNombre() + 
-                            "\nApellido: " + p.getApellido() + 
-                            "\nTeléfono: " + p.getTelefono()+ 
-                            "\nCorreo: " + p.getCorreo()+ 
-                            "\n\nLIBRO:" + 
-                            "\nISBN Libro: " + isbn + 
-                            "\nTítulo: " + l.getTitulo() + 
-                            "\nAutor: " + l.getAutor()+ 
-                            "\nPrecio: S/" + String.format("%.2f", l.getPrecio()) +
-                            "\nStock: " + l.getStock());
+
+            if (p != null && l != null) {
+                StringBuilder info = new StringBuilder();
+                info.append("PROVEEDOR:\n");
+                info.append("RUC: ").append(ruc).append("\n");
+                info.append("Nombre: ").append(p.getNombre()).append("\n");
+                info.append("Apellido: ").append(p.getApellido()).append("\n");
+                info.append("Teléfono: ").append(p.getTelefono()).append("\n");
+                info.append("Correo: ").append(p.getCorreo()).append("\n\n");
+
+                info.append("LIBRO:\n");
+                info.append("ISBN: ").append(isbn).append("\n");
+                info.append("Título: ").append(l.getTitulo()).append("\n");
+                info.append("Autor: ").append(l.getAutor()).append("\n");
+                info.append("Precio Compra: S/.").append(String.format("%.2f", l.getPrecioCompra())).append("\n");
+                info.append("Precio Venta: S/.").append(String.format("%.2f", l.getPrecioVenta())).append("\n");
+                info.append("Stock actual: ").append(l.getCantidad());
+
+                vista.taInformacion.setText(info.toString());
+            }
+        }
+    }
+
+    private void actualizarCombos() {
+        // Actualizar lista de libros
+        vista.cbIsbnLibro.removeAllItems();
+        vista.cbIsbnLibro.addItem("Seleccione...");
+        mapaLibros.clear();
+
+        LibroDAO lDao = new LibroDAO();
+        for (Libro l : lDao.listar()) {
+            vista.cbIsbnLibro.addItem(l.getIsbn());
+            mapaLibros.put(l.getIsbn(), l);
         }
     }
 
@@ -247,9 +255,9 @@ public class CompraProveedorController implements ActionListener {
         vista.txtIdCompra.setText("");
         vista.cbRucProveedor.setSelectedIndex(0);
         vista.cbIsbnLibro.setSelectedIndex(0);
-        vista.dtFechaEntrega.setDate(null);
+        vista.dtFechaCompra.setDate(null);
         vista.txtCantidad.setText("");
-        vista.txtPrecioUnitario.setText("");
+        vista.txtPrecioCompraUnitario.setText("");
         vista.txtMontoTotal.setText("");
         vista.taInformacion.setText("");
     }
@@ -258,11 +266,18 @@ public class CompraProveedorController implements ActionListener {
         DefaultTableModel model = (DefaultTableModel) vista.tGestionCompras.getModel();
         model.setRowCount(0);
         java.time.format.DateTimeFormatter formatter = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DecimalFormat df = new DecimalFormat("#.##");
 
         for (CompraProveedor cp : cpDao.listar()) {
-            model.addRow(new Object[]{cp.getIdCompra(), cp.getProveedor().getRuc(), cp.getLibro().getIsbn(),
-                cp.getFechaEntrega().format(formatter), cp.getCantidad(),
-                cp.getPrecioUnitario(), cp.getMontoTotal()});
+            model.addRow(new Object[]{
+                cp.getIdCompra(),
+                cp.getProveedor().getRuc(),
+                cp.getLibro().getIsbn(),
+                cp.getFechaCompra().format(formatter),
+                cp.getCantidad(),
+                df.format(cp.getPrecioCompraUnitario()),
+                df.format(cp.getMontoTotal())
+            });
         }
     }
 }

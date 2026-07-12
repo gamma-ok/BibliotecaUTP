@@ -1,16 +1,13 @@
 package biblioteca.modelo;
 
-import biblioteca.modelo.Libro;
-
 public class Enciclopedia extends Libro {
 
     // Atributo
     private int numeroTomo;
 
-    // Constructor parametrizado abstracto
-    public Enciclopedia(int idLibro, String isbn, String titulo, String autor, double precio,
-            int stock, int anioPublicacion, String tipoLibro, int numeroTomo) {
-        super(idLibro, isbn, titulo, autor, precio, stock, anioPublicacion, tipoLibro);
+    // Constructor parametrizado
+    public Enciclopedia(int idLibro, String isbn, String titulo, String autor, double precioCompra, double precioVenta, int cantidad, int anioPublicacion, String tipoLibro, int numeroTomo) {
+        super(idLibro, isbn, titulo, autor, precioCompra, precioVenta, cantidad, anioPublicacion, tipoLibro);
         this.numeroTomo = numeroTomo;
     }
 
@@ -26,11 +23,11 @@ public class Enciclopedia extends Libro {
     // Metodos
     @Override
     public double calcularPrecioFinal() {
-        return this.getPrecio() + 10.0; // Tienen un recargo extra de S/10
+        return this.getPrecioVenta() + 10.0; // Recargo extra de S/10 sobre el precio de venta
     }
 
     @Override
-    public String obtenerDetalle() { // toString
+    public String obtenerDetalle() {
         return "Enciclopedia: " + getTitulo() + " - Tomo: " + numeroTomo;
     }
 }

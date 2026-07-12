@@ -8,32 +8,30 @@ public class CompraProveedor {
     private int idCompra;
     private Proveedor proveedor;
     private Libro libro;
-    private LocalDate fechaEntrega;
+    private LocalDate fechaCompra;
     private int cantidad;
-    private double precioUnitario;
+    private double precioCompraUnitario;
     private double montoTotal;
 
     // Constructor para REGISTRAR nuevas compras (Lógica de formulario)
-    public CompraProveedor(int idCompra, Proveedor proveedor, Libro libro, LocalDate fechaEntrega,
-            int cantidad, double precioUnitario) {
+    public CompraProveedor(int idCompra, Proveedor proveedor, Libro libro, LocalDate fechaCompra, int cantidad, double precioCompraUnitario) {
         this.idCompra = idCompra;
         this.proveedor = proveedor;
         this.libro = libro;
-        this.fechaEntrega = fechaEntrega;
+        this.fechaCompra = fechaCompra;
         this.cantidad = cantidad;
-        this.precioUnitario = precioUnitario;
-        this.montoTotal = this.cantidad * this.precioUnitario; // MontoTotal automatico al crear el objeto
+        this.precioCompraUnitario = precioCompraUnitario;
+        this.montoTotal = this.cantidad * this.precioCompraUnitario;
     }
 
     // Constructor para RECUPERAR compras de la BD (incluye montoTotal)
-    public CompraProveedor(int idCompra, Proveedor proveedor, Libro libro, LocalDate fechaEntrega,
-            int cantidad, double precioUnitario, double montoTotal) {
+    public CompraProveedor(int idCompra, Proveedor proveedor, Libro libro, LocalDate fechaCompra, int cantidad, double precioCompraUnitario, double montoTotal) {
         this.idCompra = idCompra;
         this.proveedor = proveedor;
         this.libro = libro;
-        this.fechaEntrega = fechaEntrega;
+        this.fechaCompra = fechaCompra;
         this.cantidad = cantidad;
-        this.precioUnitario = precioUnitario;
+        this.precioCompraUnitario = precioCompraUnitario;
         this.montoTotal = montoTotal;
     }
 
@@ -62,12 +60,12 @@ public class CompraProveedor {
         this.libro = libro;
     }
 
-    public LocalDate getFechaEntrega() {
-        return fechaEntrega;
+    public LocalDate getFechaCompra() {
+        return fechaCompra;
     }
 
-    public void setFechaEntrega(LocalDate fechaEntrega) {
-        this.fechaEntrega = fechaEntrega;
+    public void setFechaCompra(LocalDate fechaCompra) {
+        this.fechaCompra = fechaCompra;
     }
 
     public int getCantidad() {
@@ -76,16 +74,16 @@ public class CompraProveedor {
 
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
-        this.montoTotal = this.cantidad * this.precioUnitario; // Recalcular si cambia
+        this.montoTotal = this.cantidad * this.precioCompraUnitario;
     }
 
-    public double getPrecioUnitario() {
-        return precioUnitario;
+    public double getPrecioCompraUnitario() {
+        return precioCompraUnitario;
     }
 
-    public void setPrecioUnitario(double precioUnitario) {
-        this.precioUnitario = precioUnitario;
-        this.montoTotal = this.cantidad * this.precioUnitario; // Recalcular si cambia
+    public void setPrecioCompraUnitario(double precioCompraUnitario) {
+        this.precioCompraUnitario = precioCompraUnitario;
+        this.montoTotal = this.cantidad * this.precioCompraUnitario;
     }
 
     public double getMontoTotal() {

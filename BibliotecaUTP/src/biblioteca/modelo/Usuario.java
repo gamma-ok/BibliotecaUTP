@@ -1,10 +1,8 @@
 package biblioteca.modelo;
 
-import biblioteca.modelo.IValidar;
-
 public class Usuario implements IValidar {
 
-    // Atribtuso
+    // Atributos
     private int idUsuario;
     private String nombre;
     private String apellido;
@@ -14,7 +12,8 @@ public class Usuario implements IValidar {
     private String direccion;
 
     // Constructor parametrizado
-    public Usuario(int idUsuario, String nombre, String apellido, String dni, String celular, String correo, String direccion) {
+    public Usuario(int idUsuario, String nombre, String apellido, String dni, 
+                   String celular, String correo, String direccion) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -24,7 +23,7 @@ public class Usuario implements IValidar {
         this.direccion = direccion;
     }
 
-    // Constructor parametrizado solo para el ComboBox del frm Prestamo
+    // Constructor simplificado para ComboBox
     public Usuario(int idUsuario, String dni) {
         this.idUsuario = idUsuario;
         this.dni = dni;
@@ -87,18 +86,14 @@ public class Usuario implements IValidar {
         this.direccion = direccion;
     }
 
-    // Metodo 
     @Override
     public boolean validarDatos() {
-        // Validaciones: DNI de 8 dígitos, celular de 9 dígitos, uso del @ en correo
         boolean dniValido = (dni != null && dni.length() == 8);
         boolean celularValido = (celular != null && celular.length() == 9);
         boolean correoValido = (correo != null && correo.contains("@"));
-
         return dniValido && celularValido && correoValido;
     }
 
-    // Valor para el Prestamo
     @Override
     public String toString() {
         return this.dni;

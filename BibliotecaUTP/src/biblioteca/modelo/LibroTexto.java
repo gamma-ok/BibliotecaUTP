@@ -5,10 +5,9 @@ public class LibroTexto extends Libro {
     // Atributo
     private String nivelAcademico;
 
-    // Constructor parametrizado abstracto
-    public LibroTexto(int idLibro, String isbn, String titulo, String autor, double precio,
-            int stock, int anioPublicacion, String tipoLibro, String nivelAcademico) {
-        super(idLibro, isbn, titulo, autor, precio, stock, anioPublicacion, tipoLibro);
+    // Constructor parametrizado
+    public LibroTexto(int idLibro, String isbn, String titulo, String autor, double precioCompra, double precioVenta, int cantidad, int anioPublicacion, String tipoLibro, String nivelAcademico) {
+        super(idLibro, isbn, titulo, autor, precioCompra, precioVenta, cantidad, anioPublicacion, tipoLibro);
         this.nivelAcademico = nivelAcademico;
     }
 
@@ -24,11 +23,11 @@ public class LibroTexto extends Libro {
     // Metodos
     @Override
     public double calcularPrecioFinal() {
-        return this.getPrecio();
+        return this.getPrecioVenta();
     }
 
     @Override
-    public String obtenerDetalle() { // toString
+    public String obtenerDetalle() {
         return "Libro académico de nivel: " + nivelAcademico;
     }
 }

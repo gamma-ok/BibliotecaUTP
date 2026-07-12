@@ -2,30 +2,20 @@
 CREATE DATABASE IF NOT EXISTS BibliotecaUTP_BD;
 USE BibliotecaUTP_BD;
 
--- Tabla: Libros (Clase padre Libro + Clases Hijas)
+-- TABLA: LIBROS
 CREATE TABLE libros (
     idLibro INT AUTO_INCREMENT PRIMARY KEY,
     isbn VARCHAR(20) NOT NULL,
     titulo VARCHAR(150) NOT NULL,
     autor VARCHAR(100) NOT NULL,
-    precio DOUBLE NOT NULL,
-    stock INT NOT NULL,
+    precioCompra DOUBLE NOT NULL, -- Precio que se paga al proveedor
+    precioVenta DOUBLE NOT NULL, -- Precio al que prestará
+    cantidad INT NOT NULL, -- Número de ejemplares disponibles
     anioPublicacion INT NOT NULL,
     tipoLibro VARCHAR(50) NOT NULL -- 'Novela', 'LibroTexto', 'Enciclopedia'
 );
 
--- Tabla: Clientes (Clase Cliente)
-CREATE TABLE usuarios (
-    idUsuario INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(50) NOT NULL,
-    apellido VARCHAR(50) NOT NULL,
-    dni VARCHAR(8) UNIQUE NOT NULL,
-    celular VARCHAR(9) NOT NULL,
-    correo VARCHAR(100) NOT NULL,
-    direccion VARCHAR(200) NOT NULL
-);
-
--- Tabla: Proveedores
+-- TABLA: PROVEEDORES
 CREATE TABLE proveedores (
     idProveedor INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL,
@@ -36,49 +26,57 @@ CREATE TABLE proveedores (
     direccion VARCHAR(200) NOT NULL
 );
 
--- Tabla: CompraProveedor (Nexo)
+-- TABLA: COMPRAS
 CREATE TABLE compras_proveedor (
     idCompra INT AUTO_INCREMENT PRIMARY KEY,
     idProveedor INT NOT NULL,
     idLibro INT NOT NULL,
-    fechaEntrega DATE NOT NULL,
-    cantidad INT NOT NULL,
-    precioUnitario DOUBLE NOT NULL,
-    montoTotal DOUBLE NOT NULL,
+    fechaCompra DATE NOT NULL,
+    cantidad INT NOT NULL,             -- Cuántos compraste en esta ocasión
+    precioCompraUnitario DOUBLE NOT NULL, -- Precio de compra en esta ocasión
+    montoTotal DOUBLE NOT NULL,        -- cantidad × precioCompraUnitario
     FOREIGN KEY (idProveedor) REFERENCES proveedores(idProveedor),
     FOREIGN KEY (idLibro) REFERENCES libros(idLibro)
 );
 
--- Tabla: Prestamos (Clase Prestamo)
+-- TABLA: USUARIOS
+CREATE TABLE usuarios (
+    idUsuario INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    apellido VARCHAR(50) NOT NULL,
+    dni VARCHAR(8) UNIQUE NOT NULL,
+    celular VARCHAR(9) NOT NULL,
+    correo VARCHAR(100) NOT NULL,
+    direccion VARCHAR(200) NOT NULL
+);
+
+-- TABLA: PRESTAMOS
 CREATE TABLE prestamos (
-    idPrestamo INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    idPrestamo INT AUTO_INCREMENT PRIMARY KEY,
     idUsuario INT NOT NULL,
     idLibro INT NOT NULL,
     fechaPrestamo DATE NOT NULL,
     fechaDevolucion DATE NOT NULL,
-    estado VARCHAR(20) NOT NULL,
-    montoPagado DOUBLE NOT NULL,
-    -- Relaciones (Llaves foráneas "FK")
+    estado VARCHAR(20) NOT NULL,  -- 'Activo', 'Devuelto', 'Vencido'
+    montoPagado DOUBLE NOT NULL,  -- Costo del préstamo
     FOREIGN KEY (idUsuario) REFERENCES usuarios(idUsuario),
     FOREIGN KEY (idLibro) REFERENCES libros(idLibro)
 );
 
-select * from libros;
-select * from usuarios;
-select * from prestamos;
+-- Libros
+INSERT INTO libros (isbn, titulo, autor, precioCompra, precioVenta, cantidad, anioPublicacion, tipoLibro) VALUES
+('978-612-304-001-1', 'La ciudad y los perros', 'Mario Vargas Llosa', 35.00, 45.90, 15, 1963, 'Novela'),
+('978-612-403-002-2', 'Conversación en La Catedral', 'Mario Vargas Llosa', 40.00, 55.00, 10, 1969, 'Novela'),
+('978-958-001-003-3', 'Cien años de soledad', 'Gabriel García Márquez', 38.00, 49.90, 20, 1967, 'Novela'),
+('978-84-376-0494-7', 'Don Quijote de la Mancha', 'Miguel de Cervantes', 45.00, 60.00, 8, 1605, 'Novela'),
+('978-9972-45-005-5', 'Matemática Básica Universitaria', 'Julio César Rojas', 60.00, 75.50, 12, 2022, 'LibroTexto'),
+('978-9972-46-006-6', 'Programación Java desde Cero', 'Carlos Ramírez', 65.00, 85.00, 18, 2023, 'LibroTexto'),
+('978-9972-47-007-7', 'Fundamentos de Administración', 'Roberto Hernández', 55.00, 70.00, 14, 2021, 'LibroTexto'),
+('978-84-670-008-8', 'Enciclopedia del Mundo Animal', 'Equipo Editorial Larousse', 90.00, 120.00, 5, 2020, 'Enciclopedia'),
+('978-84-670-009-9', 'Enciclopedia Historia Universal', 'Editorial Planeta', 110.00, 150.00, 7, 2019, 'Enciclopedia'),
+('978-612-490-010-0', 'Atlas Geográfico del Perú', 'Instituto Cartográfico Nacional', 70.00, 95.00, 9, 2024, 'Enciclopedia');
 
-INSERT INTO libros (isbn, titulo, autor, precio, stock, anioPublicacion, tipoLibro) VALUES
-('978-612-304-001-1', 'La ciudad y los perros', 'Mario Vargas Llosa', 45.90, 15, 1963, 'Novela'),
-('978-612-403-002-2', 'Conversación en La Catedral', 'Mario Vargas Llosa', 55.00, 10, 1969, 'Novela'),
-('978-958-001-003-3', 'Cien años de soledad', 'Gabriel García Márquez', 49.90, 20, 1967, 'Novela'),
-('978-84-376-0494-7', 'Don Quijote de la Mancha', 'Miguel de Cervantes', 60.00, 8, 1605, 'Novela'),
-('978-9972-45-005-5', 'Matemática Básica Universitaria', 'Julio César Rojas', 75.50, 12, 2022, 'LibroTexto'),
-('978-9972-46-006-6', 'Programación Java desde Cero', 'Carlos Ramírez', 85.00, 18, 2023, 'LibroTexto'),
-('978-9972-47-007-7', 'Fundamentos de Administración', 'Roberto Hernández', 70.00, 14, 2021, 'LibroTexto'),
-('978-84-670-008-8', 'Enciclopedia del Mundo Animal', 'Equipo Editorial Larousse', 120.00, 5, 2020, 'Enciclopedia'),
-('978-84-670-009-9', 'Enciclopedia Historia Universal', 'Editorial Planeta', 150.00, 7, 2019, 'Enciclopedia'),
-('978-612-490-010-0', 'Atlas Geográfico del Perú', 'Instituto Cartográfico Nacional', 95.00, 9, 2024, 'Enciclopedia');
-
+-- Usuarios
 INSERT INTO usuarios (nombre, apellido, dni, celular, correo, direccion) VALUES
 ('Santiago', 'Gamarra', '74258196', '987654321', 'santiago.gamarra@gmail.com', 'Lima, Perú'),
 ('Carlos', 'Mendoza', '71345682', '986532147', 'carlos.mendoza@gmail.com', 'San Miguel, Lima'),
@@ -91,6 +89,7 @@ INSERT INTO usuarios (nombre, apellido, dni, celular, correo, direccion) VALUES
 ('Renato', 'Salazar', '76984521', '979452136', 'renato.salazar@gmail.com', 'Barranco, Lima'),
 ('Camila', 'Vargas', '74125896', '978563214', 'camila.vargas@gmail.com', 'Jesús María, Lima');
 
+-- Proveedores
 INSERT INTO proveedores (nombre, apellido, telefono, correo, ruc, direccion) VALUES
 ('Roberto', 'Mateo', '46823486', 'roberto.mateo@gmail.com', '20100012345', 'San Miguel, Lima'),
 ('Juan', 'Pérez', '87654321', 'juan.perez@libros.com', '20456789123', 'Cercado de Lima'),
@@ -103,7 +102,8 @@ INSERT INTO proveedores (nombre, apellido, telefono, correo, ruc, direccion) VAL
 ('Luis', 'Herrera', '82365147', 'luis.herrera@gmail.com', '20234567891', 'La Victoria, Lima'),
 ('Nixon', 'Rojas', '42615346', 'nixon.rojas@gmail.com', '20345678912', 'Pueblo Libre, Lima');
 
-INSERT INTO compras_proveedor (idProveedor, idLibro, fechaEntrega, cantidad, precioUnitario, montoTotal) VALUES
+-- Compras
+INSERT INTO compras_proveedor (idProveedor, idLibro, fechaCompra, cantidad, precioCompraUnitario, montoTotal) VALUES
 (1, 1, '2026-01-10', 10, 35.00, 350.00),
 (2, 2, '2026-01-15', 8, 40.00, 320.00),
 (3, 3, '2026-02-01', 15, 38.00, 570.00),
@@ -113,8 +113,9 @@ INSERT INTO compras_proveedor (idProveedor, idLibro, fechaEntrega, cantidad, pre
 (7, 7, '2026-03-15', 10, 55.00, 550.00),
 (8, 8, '2026-04-01', 5, 90.00, 450.00),
 (9, 9, '2026-04-12', 7, 110.00, 770.00),
-(10,10, '2026-05-01', 6, 70.00, 420.00);
+(10, 10, '2026-05-01', 6, 70.00, 420.00);
 
+-- Préstamos
 INSERT INTO prestamos (idUsuario, idLibro, fechaPrestamo, fechaDevolucion, estado, montoPagado) VALUES
 (1, 1, '2026-01-05', '2026-01-20', 'Devuelto', 5.00),
 (2, 3, '2026-01-12', '2026-01-27', 'Devuelto', 5.00),
@@ -125,4 +126,4 @@ INSERT INTO prestamos (idUsuario, idLibro, fechaPrestamo, fechaDevolucion, estad
 (7, 4, '2026-04-05', '2026-04-20', 'Devuelto', 5.00),
 (8, 7, '2026-04-15', '2026-04-30', 'Retrasado', 15.00),
 (9, 9, '2026-05-01', '2026-05-15', 'Devuelto', 5.00),
-(10,10, '2026-05-10', '2026-05-25', 'Pendiente', 0.00);
+(10, 10, '2026-05-10', '2026-05-25', 'Pendiente', 0.00);

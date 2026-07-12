@@ -88,11 +88,9 @@ public class Proveedor implements IValidar {
     // Metodo 
     @Override
     public boolean validarDatos() {
-        // Validaciones: RUC de 11 dígitos, telefono de 9 dígitos, uso del @ en correo
         boolean telefonoValido = (telefono != null && telefono.length() == 8);
         boolean correoValido = (correo != null && correo.contains("@"));
         boolean rucValido = (ruc != null && ruc.length() == 11);
-
         return rucValido && correoValido && telefonoValido;
     }
 

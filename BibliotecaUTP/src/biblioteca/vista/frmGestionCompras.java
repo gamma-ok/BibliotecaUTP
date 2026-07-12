@@ -27,7 +27,7 @@ public class frmGestionCompras extends javax.swing.JFrame {
         Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("../recursos/iconBibliotecaFrm.png"));
         this.setIconImage(icon);
 
-        String[] titulo = new String[]{"ID", "Proveedor", "Libro", "F. Entrega", "Cantidad", "Precio", "Total"};
+        String[] titulo = new String[]{"ID", "Proveedor", "Libro", "F. Compra", "Cantidad", "Precio", "Total"};
         dtm.setColumnIdentifiers(titulo);
         tGestionCompras.setModel(dtm);
         tGestionCompras.getTableHeader().setReorderingAllowed(false);
@@ -50,9 +50,6 @@ public class frmGestionCompras extends javax.swing.JFrame {
         btnEliminar.setOpaque(false);
         btnEliminar.setContentAreaFilled(false);
         btnEliminar.setBorderPainted(false);
-        btnBuscar.setOpaque(false);
-        btnBuscar.setContentAreaFilled(false);
-        btnBuscar.setBorderPainted(false);
         btnVolver.setOpaque(false);
         btnVolver.setContentAreaFilled(false);
         btnVolver.setBorderPainted(false);
@@ -60,7 +57,7 @@ public class frmGestionCompras extends javax.swing.JFrame {
 
     public void centrarTabla() {
         JTableHeader header = tGestionCompras.getTableHeader();
-        header.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
+        header.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
         header.setForeground(Color.BLACK);
         header.setBackground(new Color(250, 235, 215));
 
@@ -83,12 +80,12 @@ public class frmGestionCompras extends javax.swing.JFrame {
         cbRucProveedor = new javax.swing.JComboBox<>();
         isbnLibro = new javax.swing.JLabel();
         cbIsbnLibro = new javax.swing.JComboBox<>();
-        fechaEntrega = new javax.swing.JLabel();
-        dtFechaEntrega = new com.toedter.calendar.JDateChooser();
+        fechaCompra = new javax.swing.JLabel();
+        dtFechaCompra = new com.toedter.calendar.JDateChooser();
         cantidad = new javax.swing.JLabel();
         txtCantidad = new javax.swing.JTextField();
         precioUnitario = new javax.swing.JLabel();
-        txtPrecioUnitario = new javax.swing.JTextField();
+        txtPrecioCompraUnitario = new javax.swing.JTextField();
         montoTotal = new javax.swing.JLabel();
         txtMontoTotal = new javax.swing.JTextField();
         informacion = new javax.swing.JLabel();
@@ -102,8 +99,6 @@ public class frmGestionCompras extends javax.swing.JFrame {
         bgBtnEditar = new javax.swing.JLabel();
         btnEliminar = new javax.swing.JButton();
         bgBtnEliminar = new javax.swing.JLabel();
-        btnBuscar = new javax.swing.JButton();
-        bgBtnBuscar = new javax.swing.JLabel();
         jScrollPane = new javax.swing.JScrollPane();
         tGestionCompras = new javax.swing.JTable();
         btnVolver = new javax.swing.JButton();
@@ -159,13 +154,13 @@ public class frmGestionCompras extends javax.swing.JFrame {
         cbIsbnLibro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione..." }));
         getContentPane().add(cbIsbnLibro, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 220, 190, 20));
 
-        fechaEntrega.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        fechaEntrega.setForeground(new java.awt.Color(255, 255, 255));
-        fechaEntrega.setText("Fecha de Entrega:");
-        getContentPane().add(fechaEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 260, 190, -1));
+        fechaCompra.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        fechaCompra.setForeground(new java.awt.Color(255, 255, 255));
+        fechaCompra.setText("Fecha de Compra:");
+        getContentPane().add(fechaCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 260, 190, -1));
 
-        dtFechaEntrega.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        getContentPane().add(dtFechaEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 280, 190, 20));
+        dtFechaCompra.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        getContentPane().add(dtFechaCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 280, 190, 20));
 
         cantidad.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         cantidad.setForeground(new java.awt.Color(255, 255, 255));
@@ -178,12 +173,12 @@ public class frmGestionCompras extends javax.swing.JFrame {
 
         precioUnitario.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         precioUnitario.setForeground(new java.awt.Color(255, 255, 255));
-        precioUnitario.setText("Precio Unitario:");
+        precioUnitario.setText("Precio de Compra Unitario:");
         getContentPane().add(precioUnitario, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 320, 190, -1));
 
-        txtPrecioUnitario.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        txtPrecioUnitario.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
-        getContentPane().add(txtPrecioUnitario, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 340, 190, 20));
+        txtPrecioCompraUnitario.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        txtPrecioCompraUnitario.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
+        getContentPane().add(txtPrecioCompraUnitario, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 340, 190, 20));
 
         montoTotal.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         montoTotal.setForeground(new java.awt.Color(255, 255, 255));
@@ -216,12 +211,12 @@ public class frmGestionCompras extends javax.swing.JFrame {
         btnNuevo.setBorder(null);
         btnNuevo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnNuevo.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        getContentPane().add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 410, 130, 40));
+        getContentPane().add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 410, 130, 40));
 
         bgBtnNuevo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         bgBtnNuevo.setForeground(new java.awt.Color(255, 255, 255));
         bgBtnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/biblioteca/recursos/bgBtnFrm.png"))); // NOI18N
-        getContentPane().add(bgBtnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 410, 130, 40));
+        getContentPane().add(bgBtnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 410, 130, 40));
 
         btnGuardar.setBackground(new java.awt.Color(255, 140, 5));
         btnGuardar.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
@@ -231,12 +226,12 @@ public class frmGestionCompras extends javax.swing.JFrame {
         btnGuardar.setBorder(null);
         btnGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGuardar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        getContentPane().add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 410, 130, 40));
+        getContentPane().add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 410, 130, 40));
 
         bgBtnGuardar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         bgBtnGuardar.setForeground(new java.awt.Color(255, 255, 255));
         bgBtnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/biblioteca/recursos/bgBtnFrm.png"))); // NOI18N
-        getContentPane().add(bgBtnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 410, 130, 40));
+        getContentPane().add(bgBtnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 410, 130, 40));
 
         btnEditar.setBackground(new java.awt.Color(255, 140, 5));
         btnEditar.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
@@ -246,12 +241,12 @@ public class frmGestionCompras extends javax.swing.JFrame {
         btnEditar.setBorder(null);
         btnEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEditar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        getContentPane().add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 410, 130, 40));
+        getContentPane().add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 410, 130, 40));
 
         bgBtnEditar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         bgBtnEditar.setForeground(new java.awt.Color(255, 255, 255));
         bgBtnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/biblioteca/recursos/bgBtnFrm.png"))); // NOI18N
-        getContentPane().add(bgBtnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 410, 130, 40));
+        getContentPane().add(bgBtnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 410, 130, 40));
 
         btnEliminar.setBackground(new java.awt.Color(255, 140, 5));
         btnEliminar.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
@@ -261,37 +256,22 @@ public class frmGestionCompras extends javax.swing.JFrame {
         btnEliminar.setBorder(null);
         btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        getContentPane().add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 410, 130, 40));
+        getContentPane().add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 410, 130, 40));
 
         bgBtnEliminar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         bgBtnEliminar.setForeground(new java.awt.Color(255, 255, 255));
         bgBtnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/biblioteca/recursos/bgBtnFrm.png"))); // NOI18N
-        getContentPane().add(bgBtnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 410, 130, 40));
-
-        btnBuscar.setBackground(new java.awt.Color(255, 140, 5));
-        btnBuscar.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
-        btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
-        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/biblioteca/recursos/search.png"))); // NOI18N
-        btnBuscar.setText(" Buscar");
-        btnBuscar.setBorder(null);
-        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnBuscar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        getContentPane().add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 410, 130, 40));
-
-        bgBtnBuscar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        bgBtnBuscar.setForeground(new java.awt.Color(255, 255, 255));
-        bgBtnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/biblioteca/recursos/bgBtnFrm.png"))); // NOI18N
-        getContentPane().add(bgBtnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 410, 130, 40));
+        getContentPane().add(bgBtnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 410, 130, 40));
 
         jScrollPane.setBorder(null);
 
-        tGestionCompras.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tGestionCompras.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         tGestionCompras.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Proveedor", "Libro", "F. Entrega", "Cantidad", "Precio", "Total"
+                "ID", "Proveedor", "Libro", "F. Compra", "Cantidad", "Precio", "Total"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -364,25 +344,25 @@ public class frmGestionCompras extends javax.swing.JFrame {
         if (row != -1) {
             txtIdCompra.setText(tGestionCompras.getValueAt(row, 0).toString());
             cbRucProveedor.setSelectedItem(tGestionCompras.getValueAt(row, 1).toString());
-            //txtIsbnLibro.setSelectedItem(tGestionCompras.getValueAt(row, 2).toString());
+            cbIsbnLibro.setSelectedItem(tGestionCompras.getValueAt(row, 2).toString());
             try {
                 // Mismo formato que de la tabla (dd/MM/yyyy)
                 java.time.format.DateTimeFormatter formatter = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-                String fechaE = tGestionCompras.getValueAt(row, 3).toString();
+                String fechaC = tGestionCompras.getValueAt(row, 3).toString();
 
-                java.time.LocalDate ldP = java.time.LocalDate.parse(fechaE, formatter);
+                java.time.LocalDate ldP = java.time.LocalDate.parse(fechaC, formatter);
                 
                 // Convertir LocalDate a java.util.Date para el JDateChooser
-                dtFechaEntrega.setDate(java.sql.Date.valueOf(ldP));
+                dtFechaCompra.setDate(java.sql.Date.valueOf(ldP));
 
             } catch (Exception e) {
                 System.err.println("Error al parsear fechas: " + e.getMessage());
                 e.printStackTrace();
             }
-            txtCantidad.setText(tGestionCompras.getValueAt(row, 3).toString());
-            txtPrecioUnitario.setText(tGestionCompras.getValueAt(row, 4).toString());
-            txtMontoTotal.setText(tGestionCompras.getValueAt(row, 5).toString());
+            txtCantidad.setText(tGestionCompras.getValueAt(row, 4).toString());
+            txtPrecioCompraUnitario.setText(tGestionCompras.getValueAt(row, 5).toString());
+            txtMontoTotal.setText(tGestionCompras.getValueAt(row, 6).toString());
         }
     }//GEN-LAST:event_tGestionComprasMousePressed
 
@@ -415,12 +395,10 @@ public class frmGestionCompras extends javax.swing.JFrame {
     private javax.swing.JLabel bg1;
     private javax.swing.JLabel bg2;
     private javax.swing.JLabel bg3;
-    private javax.swing.JLabel bgBtnBuscar;
     private javax.swing.JLabel bgBtnEditar;
     private javax.swing.JLabel bgBtnEliminar;
     private javax.swing.JLabel bgBtnGuardar;
     private javax.swing.JLabel bgBtnNuevo;
-    public javax.swing.JButton btnBuscar;
     public javax.swing.JButton btnEditar;
     public javax.swing.JButton btnEliminar;
     public javax.swing.JButton btnGuardar;
@@ -430,8 +408,8 @@ public class frmGestionCompras extends javax.swing.JFrame {
     public javax.swing.JComboBox<String> cbIsbnLibro;
     public javax.swing.JComboBox<String> cbRucProveedor;
     private javax.swing.JLabel copyright;
-    public com.toedter.calendar.JDateChooser dtFechaEntrega;
-    private javax.swing.JLabel fechaEntrega;
+    public com.toedter.calendar.JDateChooser dtFechaCompra;
+    private javax.swing.JLabel fechaCompra;
     public javax.swing.JLabel id;
     private javax.swing.JLabel infoForm;
     private javax.swing.JLabel informacion;
@@ -447,6 +425,6 @@ public class frmGestionCompras extends javax.swing.JFrame {
     public javax.swing.JTextField txtCantidad;
     public javax.swing.JTextField txtIdCompra;
     public javax.swing.JTextField txtMontoTotal;
-    public javax.swing.JTextField txtPrecioUnitario;
+    public javax.swing.JTextField txtPrecioCompraUnitario;
     // End of variables declaration//GEN-END:variables
 }

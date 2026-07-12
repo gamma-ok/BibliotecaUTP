@@ -68,7 +68,7 @@ public class frmGestionProveedores extends javax.swing.JFrame {
 
     public void centrarTabla() {
         JTableHeader header = tGestionProveedores.getTableHeader();
-        header.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
+        header.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
         header.setForeground(Color.BLACK);
         header.setBackground(new Color(250, 235, 215));
 
@@ -277,7 +277,7 @@ public class frmGestionProveedores extends javax.swing.JFrame {
 
         jScrollPane.setBorder(null);
 
-        tGestionProveedores.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tGestionProveedores.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         tGestionProveedores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 

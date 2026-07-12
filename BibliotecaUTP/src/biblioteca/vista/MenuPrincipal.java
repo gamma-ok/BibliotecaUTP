@@ -227,7 +227,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void btnGestionLibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionLibrosActionPerformed
         // Instanciar el modelo, el DAO a la vista
         // Clase hija Novela como instancia para el modelo
-        Libro modelo = new Novela(0, "", "", "", 0.0, 0, 2026, "Novela", "General");
+        Libro modelo = new Novela(0, "", "", "", 0.0, 0.0, 0, 2026, "Novela", "General");
         LibroDAO dao = new LibroDAO();
         frmGestionLibros vista = new frmGestionLibros();
 

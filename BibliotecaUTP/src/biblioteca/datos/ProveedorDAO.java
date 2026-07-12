@@ -34,7 +34,7 @@ public class ProveedorDAO extends ConexionDB {
             ps.setString(6, p.getRuc());
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
-            e.printStackTrace(); // Esto dirá si hay un error de SQL
+            e.printStackTrace();
             return false;
         }
     }
@@ -52,7 +52,9 @@ public class ProveedorDAO extends ConexionDB {
     public List<Proveedor> listar() {
         List<Proveedor> lista = new ArrayList<>();
         String sql = "SELECT * FROM proveedores";
-        try (Connection conn = conectar(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+        try (Connection conn = conectar(); 
+             PreparedStatement ps = conn.prepareStatement(sql); 
+             ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 Proveedor p = new Proveedor(
                         rs.getInt("idProveedor"),

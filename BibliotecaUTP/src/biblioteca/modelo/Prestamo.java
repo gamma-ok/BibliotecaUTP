@@ -13,7 +13,7 @@ public class Prestamo implements IValidar {
     private String estado;
     private double montoPagado;
 
-    // Constructor para REGISTRAR nuevos préstamos (Lógica de formulario)
+    // Constructor para REGISTRAR nuevos préstamos
     public Prestamo(int idPrestamo, Usuario usuario, Libro libro, int diasPrestamo) {
         this.idPrestamo = idPrestamo;
         this.usuario = usuario;
@@ -21,12 +21,11 @@ public class Prestamo implements IValidar {
         this.fechaPrestamo = LocalDate.now();
         this.fechaDevolucion = this.fechaPrestamo.plusDays(diasPrestamo);
         this.estado = "Prestado";
-        this.montoPagado = libro.calcularPrecioFinal();
+        this.montoPagado = libro.calcularPrecioFinal();  // Usa precioVenta
     }
 
-    // Constructor para RECUPERAR préstamos (Lógica de base de datos)
-    public Prestamo(int idPrestamo, Usuario usuario, Libro libro, LocalDate fechaPrestamo,
-            LocalDate fechaDevolucion, String estado, double montoPagado) {
+    // Constructor para RECUPERAR préstamos de la BD
+    public Prestamo(int idPrestamo, Usuario usuario, Libro libro, LocalDate fechaPrestamo, LocalDate fechaDevolucion, String estado, double montoPagado) {
         this.idPrestamo = idPrestamo;
         this.usuario = usuario;
         this.libro = libro;
@@ -36,7 +35,7 @@ public class Prestamo implements IValidar {
         this.montoPagado = montoPagado;
     }
 
-    // Getters y Setters
+    // Getters
     public int getIdPrestamo() {
         return idPrestamo;
     }
@@ -69,9 +68,8 @@ public class Prestamo implements IValidar {
         this.estado = estado;
     }
 
-    // Metodo
     @Override
     public boolean validarDatos() {
-        return libro != null && usuario != null && libro.getStock() > 0;
+        return libro != null && usuario != null && libro.getCantidad() > 0;
     }
 }

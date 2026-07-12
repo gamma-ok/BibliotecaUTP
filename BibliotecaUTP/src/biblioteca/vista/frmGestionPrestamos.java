@@ -56,7 +56,7 @@ public class frmGestionPrestamos extends javax.swing.JFrame {
 
     public void centrarTabla() {
         JTableHeader header = tGestionPrestamos.getTableHeader();
-        header.setFont(new Font("Century Gothic", Font.BOLD, 14));
+        header.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
         header.setForeground(Color.BLACK);
         header.setBackground(new Color(250, 235, 215));
 
@@ -175,7 +175,7 @@ public class frmGestionPrestamos extends javax.swing.JFrame {
         getContentPane().add(estado, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 320, 190, -1));
 
         cbEstado.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        cbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione...", "Devuelto", "Pendiente", "Retrasado" }));
+        cbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione...", "Devuelto", "Pendiente", "Vencido" }));
         getContentPane().add(cbEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 340, 190, 20));
 
         montoPagado.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N

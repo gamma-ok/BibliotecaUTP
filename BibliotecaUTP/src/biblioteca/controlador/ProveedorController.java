@@ -57,7 +57,7 @@ public class ProveedorController implements ActionListener {
                     JOptionPane.showMessageDialog(vista, "Error: El RUC ya existe o hubo un problema al guardar.");
                 }
             } else {
-                JOptionPane.showMessageDialog(vista, "Datos inválidos (RUC 11 dígitos, Teléfono 9 dígitos, Correo con @).");
+                JOptionPane.showMessageDialog(vista, "Datos inválidos (RUC 11 dígitos, Teléfono 8 dígitos, Correo con @).");
             }
 
         } else if (e.getSource() == vista.btnEditar) {
@@ -91,13 +91,12 @@ public class ProveedorController implements ActionListener {
             int confirmar = JOptionPane.showConfirmDialog(vista, "¿Estás seguro de eliminar este proveedor?", "Confirmación", JOptionPane.YES_NO_OPTION);
             
             if (confirmar == JOptionPane.YES_OPTION) {
-                // DAO maneja la excepción de FK
                 if (dao.eliminar(ruc)) {
                     JOptionPane.showMessageDialog(vista, "Proveedor eliminado.");
                     limpiarVista();
                     listarTabla();
                 } else {
-                    JOptionPane.showMessageDialog(vista, "Error: El proveedor tiene compras asociadas.", "Error de Integridad" ,JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(vista, "Error: El proveedor tiene compras asociadas.", "Error de Integridad", JOptionPane.ERROR_MESSAGE);
                 }
             }
 

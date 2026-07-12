@@ -1,10 +1,14 @@
 package biblioteca.controlador;
 
 import biblioteca.modelo.Libro;
+import biblioteca.modelo.Novela;
+import biblioteca.modelo.LibroTexto;
+import biblioteca.modelo.Enciclopedia;
 import biblioteca.datos.LibroDAO;
 import biblioteca.vista.frmGestionLibros;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -36,9 +40,10 @@ public class LibroController implements ActionListener {
             if (vista.txtIsbn.getText().trim().isEmpty()
                     || vista.txtTitulo.getText().trim().isEmpty()
                     || vista.txtAutor.getText().trim().isEmpty()
-                    || vista.txtPrecio.getText().trim().isEmpty()
-                    || vista.txtStock.getText().trim().isEmpty()
-                    || vista.cbTipoLibro.getSelectedIndex() == 0) { // Validación del ComboBox
+                    || vista.txtPrecioCompra.getText().trim().isEmpty()
+                    || vista.txtPrecioVenta.getText().trim().isEmpty()
+                    || vista.txtCantidad.getText().trim().isEmpty()
+                    || vista.cbTipoLibro.getSelectedIndex() == 0) {
 
                 if (vista.cbTipoLibro.getSelectedIndex() == 0) {
                     JOptionPane.showMessageDialog(vista, "Debe seleccionar un tipo de libro válido.");
@@ -49,12 +54,13 @@ public class LibroController implements ActionListener {
             }
 
             // Validar formatos numéricos
-            Double.parseDouble(vista.txtPrecio.getText());
-            Integer.parseInt(vista.txtStock.getText());
+            Double.parseDouble(vista.txtPrecioCompra.getText());
+            Double.parseDouble(vista.txtPrecioVenta.getText());
+            Integer.parseInt(vista.txtCantidad.getText());
 
             return true;
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(vista, "El Precio y el Stock deben ser valores numéricos válidos.");
+            JOptionPane.showMessageDialog(vista, "Los precios y la cantidad deben ser valores numéricos válidos.");
             return false;
         }
     }
@@ -97,7 +103,7 @@ public class LibroController implements ActionListener {
                 return;
             }
 
-            int confirm = JOptionPane.showConfirmDialog(vista, "¿Estás seguro de eliminar a este libro?", "Confirmación", JOptionPane.YES_NO_OPTION);
+            int confirm = JOptionPane.showConfirmDialog(vista, "¿Estás seguro de eliminar este libro?", "Confirmación", JOptionPane.YES_NO_OPTION);
             if (confirm == JOptionPane.YES_OPTION) {
                 if (dao.eliminar(isbn)) {
                     JOptionPane.showMessageDialog(vista, "Libro eliminado.");
@@ -119,8 +125,9 @@ public class LibroController implements ActionListener {
             if (dao.buscar(modelo)) {
                 vista.txtTitulo.setText(modelo.getTitulo());
                 vista.txtAutor.setText(modelo.getAutor());
-                vista.txtPrecio.setText(String.valueOf(modelo.getPrecio()));
-                vista.txtStock.setText(String.valueOf(modelo.getStock()));
+                vista.txtPrecioCompra.setText(String.valueOf(modelo.getPrecioCompra()));
+                vista.txtPrecioVenta.setText(String.valueOf(modelo.getPrecioVenta()));
+                vista.txtCantidad.setText(String.valueOf(modelo.getCantidad()));
                 vista.cbTipoLibro.setSelectedItem(modelo.getTipoLibro());
                 vista.dateAnioPublicacion.setYear(modelo.getAnioPublicacion());
             } else {
@@ -135,8 +142,9 @@ public class LibroController implements ActionListener {
         modelo.setIsbn(vista.txtIsbn.getText().trim());
         modelo.setTitulo(vista.txtTitulo.getText().trim());
         modelo.setAutor(vista.txtAutor.getText().trim());
-        modelo.setPrecio(Double.parseDouble(vista.txtPrecio.getText()));
-        modelo.setStock(Integer.parseInt(vista.txtStock.getText()));
+        modelo.setPrecioCompra(Double.parseDouble(vista.txtPrecioCompra.getText()));
+        modelo.setPrecioVenta(Double.parseDouble(vista.txtPrecioVenta.getText()));
+        modelo.setCantidad(Integer.parseInt(vista.txtCantidad.getText()));
         modelo.setAnioPublicacion(vista.dateAnioPublicacion.getYear());
         modelo.setTipoLibro(vista.cbTipoLibro.getSelectedItem().toString());
     }
@@ -145,8 +153,9 @@ public class LibroController implements ActionListener {
         vista.txtIsbn.setText("");
         vista.txtTitulo.setText("");
         vista.txtAutor.setText("");
-        vista.txtPrecio.setText("");
-        vista.txtStock.setText("");
+        vista.txtPrecioCompra.setText("");
+        vista.txtPrecioVenta.setText("");
+        vista.txtCantidad.setText("");
         vista.cbTipoLibro.setSelectedIndex(0);
         vista.dateAnioPublicacion.setYear(java.util.Calendar.getInstance().get(java.util.Calendar.YEAR));
     }
@@ -154,8 +163,19 @@ public class LibroController implements ActionListener {
     private void listarTabla() {
         DefaultTableModel tbl = (DefaultTableModel) vista.tGestionLibros.getModel();
         tbl.setRowCount(0);
+        DecimalFormat df = new DecimalFormat("#.##"); // Formato con 2 decimales
+
         for (Libro l : dao.listar()) {
-            tbl.addRow(new Object[]{l.getIsbn(), l.getTipoLibro(), l.getTitulo(), l.getAutor(), l.getPrecio(), l.getStock(), l.getAnioPublicacion()});
+            tbl.addRow(new Object[]{
+                l.getIsbn(),
+                l.getTipoLibro(),
+                l.getTitulo(),
+                l.getAutor(),
+                df.format(l.getPrecioCompra()),
+                df.format(l.getPrecioVenta()),
+                l.getCantidad(),
+                l.getAnioPublicacion()
+            });
         }
     }
 }

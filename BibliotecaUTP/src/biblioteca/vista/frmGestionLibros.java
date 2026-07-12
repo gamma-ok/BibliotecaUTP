@@ -33,7 +33,7 @@ public class frmGestionLibros extends javax.swing.JFrame {
         Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("../recursos/iconBibliotecaFrm.png"));
         this.setIconImage(icon);
 
-        String[] titulo = new String[]{"ISBN", "T. Libro", "Título", "Autor", "Precio", "Stock", "A. Publicación"};
+        String[] titulo = new String[]{"ISBN", "T. Libro", "Título", "Autor", "Precio Compra", "Precio Venta", "Cantidad", "A. Publicación"};
         dtm.setColumnIdentifiers(titulo);
         tGestionLibros.setModel(dtm);
         tGestionLibros.getTableHeader().setReorderingAllowed(false);
@@ -71,7 +71,7 @@ public class frmGestionLibros extends javax.swing.JFrame {
 
     public void centrarTabla() {
         JTableHeader header = tGestionLibros.getTableHeader();
-        header.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
+        header.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
         header.setForeground(Color.BLACK);
         header.setBackground(new Color(250, 235, 215));
 
@@ -98,10 +98,12 @@ public class frmGestionLibros extends javax.swing.JFrame {
         txtTitulo = new javax.swing.JTextField();
         autor = new javax.swing.JLabel();
         txtAutor = new javax.swing.JTextField();
-        precio = new javax.swing.JLabel();
-        txtPrecio = new javax.swing.JTextField();
-        stock = new javax.swing.JLabel();
-        txtStock = new javax.swing.JTextField();
+        precioCompra = new javax.swing.JLabel();
+        txtPrecioCompra = new javax.swing.JTextField();
+        precioVenta = new javax.swing.JLabel();
+        txtPrecioVenta = new javax.swing.JTextField();
+        cantidad = new javax.swing.JLabel();
+        txtCantidad = new javax.swing.JTextField();
         anioPublicacion = new javax.swing.JLabel();
         dateAnioPublicacion = new com.toedter.calendar.JYearChooser();
         btnNuevo = new javax.swing.JButton();
@@ -143,73 +145,82 @@ public class frmGestionLibros extends javax.swing.JFrame {
         id.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         id.setForeground(new java.awt.Color(255, 255, 255));
         id.setText("ID:");
-        getContentPane().add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 160, 30, 20));
+        getContentPane().add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 160, 30, 20));
 
         txtIdLibro.setEditable(false);
         txtIdLibro.setBackground(new java.awt.Color(255, 255, 255));
         txtIdLibro.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         txtIdLibro.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
-        getContentPane().add(txtIdLibro, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 160, 240, 20));
+        getContentPane().add(txtIdLibro, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 160, 190, 20));
 
         isbn.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         isbn.setForeground(new java.awt.Color(255, 255, 255));
         isbn.setText("ISBN:");
-        getContentPane().add(isbn, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, 220, 20));
+        getContentPane().add(isbn, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, 190, 20));
 
         txtIsbn.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         txtIsbn.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
-        getContentPane().add(txtIsbn, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 220, 240, 20));
+        getContentPane().add(txtIsbn, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 220, 220, 20));
 
         tipoLibro.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         tipoLibro.setForeground(new java.awt.Color(255, 255, 255));
         tipoLibro.setText("Tipo de Libro:");
-        getContentPane().add(tipoLibro, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 200, 270, -1));
+        getContentPane().add(tipoLibro, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 200, 220, -1));
 
         cbTipoLibro.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         cbTipoLibro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione...", "LibroTexto", "Novela", "Enciclopedia" }));
-        getContentPane().add(cbTipoLibro, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 220, 270, 20));
+        getContentPane().add(cbTipoLibro, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 220, 220, 20));
 
         titulo.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         titulo.setForeground(new java.awt.Color(255, 255, 255));
         titulo.setText("Título:");
-        getContentPane().add(titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 260, 240, -1));
+        getContentPane().add(titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 260, 220, -1));
 
         txtTitulo.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         txtTitulo.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
-        getContentPane().add(txtTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 280, 240, 20));
+        getContentPane().add(txtTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 280, 220, 20));
 
         autor.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         autor.setForeground(new java.awt.Color(255, 255, 255));
         autor.setText("Autor:");
-        getContentPane().add(autor, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 260, 270, -1));
+        getContentPane().add(autor, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 260, 220, -1));
 
         txtAutor.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         txtAutor.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
-        getContentPane().add(txtAutor, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 280, 270, 20));
+        getContentPane().add(txtAutor, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 280, 220, 20));
 
-        precio.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        precio.setForeground(new java.awt.Color(255, 255, 255));
-        precio.setText("Precio");
-        getContentPane().add(precio, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 320, 240, -1));
+        precioCompra.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        precioCompra.setForeground(new java.awt.Color(255, 255, 255));
+        precioCompra.setText("Precio de Compra:");
+        getContentPane().add(precioCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 260, 220, -1));
 
-        txtPrecio.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        txtPrecio.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
-        getContentPane().add(txtPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 340, 240, 20));
+        txtPrecioCompra.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        txtPrecioCompra.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
+        getContentPane().add(txtPrecioCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 280, 220, 20));
 
-        stock.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        stock.setForeground(new java.awt.Color(255, 255, 255));
-        stock.setText("Stock:");
-        getContentPane().add(stock, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 320, 270, -1));
+        precioVenta.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        precioVenta.setForeground(new java.awt.Color(255, 255, 255));
+        precioVenta.setText("Precio de Venta:");
+        getContentPane().add(precioVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 320, 220, -1));
 
-        txtStock.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        txtStock.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
-        getContentPane().add(txtStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 340, 270, 20));
+        txtPrecioVenta.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        txtPrecioVenta.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
+        getContentPane().add(txtPrecioVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 340, 220, 20));
+
+        cantidad.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        cantidad.setForeground(new java.awt.Color(255, 255, 255));
+        cantidad.setText("Cantidad:");
+        getContentPane().add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 320, 220, -1));
+
+        txtCantidad.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        txtCantidad.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
+        getContentPane().add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 340, 220, 20));
 
         anioPublicacion.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         anioPublicacion.setForeground(new java.awt.Color(255, 255, 255));
         anioPublicacion.setText("Año de Publicación:");
-        getContentPane().add(anioPublicacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 200, 130, 20));
-        getContentPane().add(dateAnioPublicacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 220, 130, 20));
+        getContentPane().add(anioPublicacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 200, 220, 20));
+        getContentPane().add(dateAnioPublicacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 220, 220, 20));
 
         btnNuevo.setBackground(new java.awt.Color(255, 140, 5));
         btnNuevo.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
@@ -294,11 +305,11 @@ public class frmGestionLibros extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ISBN", "T. Libro", "Título", "Autor", "Precio", "Stock", "A. Publicación"
+                "ISBN", "T. Libro", "Título", "Autor", "Precio Compra", "Precio Venta", "Cantidad", "A. Publicación"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -369,9 +380,10 @@ public class frmGestionLibros extends javax.swing.JFrame {
             cbTipoLibro.setSelectedItem(tGestionLibros.getValueAt(row, 1).toString());
             txtTitulo.setText(tGestionLibros.getValueAt(row, 2).toString());
             txtAutor.setText(tGestionLibros.getValueAt(row, 3).toString());
-            txtPrecio.setText(tGestionLibros.getValueAt(row, 4).toString());
-            txtStock.setText(tGestionLibros.getValueAt(row, 5).toString());
-            int anio = Integer.parseInt(tGestionLibros.getValueAt(row, 6).toString());
+            txtPrecioCompra.setText(tGestionLibros.getValueAt(row, 4).toString());
+            txtPrecioVenta.setText(tGestionLibros.getValueAt(row, 5).toString());
+            txtCantidad.setText(tGestionLibros.getValueAt(row, 6).toString());
+            int anio = Integer.parseInt(tGestionLibros.getValueAt(row, 7).toString());
             dateAnioPublicacion.setYear(anio);
         }
     }//GEN-LAST:event_tGestionLibrosMousePressed
@@ -418,6 +430,7 @@ public class frmGestionLibros extends javax.swing.JFrame {
     public javax.swing.JButton btnGuardar;
     public javax.swing.JButton btnNuevo;
     public javax.swing.JButton btnVolver;
+    private javax.swing.JLabel cantidad;
     public javax.swing.JComboBox<String> cbTipoLibro;
     private javax.swing.JLabel copyright;
     public com.toedter.calendar.JYearChooser dateAnioPublicacion;
@@ -425,17 +438,18 @@ public class frmGestionLibros extends javax.swing.JFrame {
     private javax.swing.JLabel infoForm;
     private javax.swing.JLabel isbn;
     private javax.swing.JScrollPane jScrollPane;
-    private javax.swing.JLabel precio;
-    private javax.swing.JLabel stock;
+    private javax.swing.JLabel precioCompra;
+    private javax.swing.JLabel precioVenta;
     public javax.swing.JTable tGestionLibros;
     private javax.swing.JLabel tipoLibro;
     private javax.swing.JLabel titulo;
     private javax.swing.JLabel tituloForm;
     public javax.swing.JTextField txtAutor;
+    public javax.swing.JTextField txtCantidad;
     public javax.swing.JTextField txtIdLibro;
     public javax.swing.JTextField txtIsbn;
-    public javax.swing.JTextField txtPrecio;
-    public javax.swing.JTextField txtStock;
+    public javax.swing.JTextField txtPrecioCompra;
+    public javax.swing.JTextField txtPrecioVenta;
     public javax.swing.JTextField txtTitulo;
     // End of variables declaration//GEN-END:variables
 }

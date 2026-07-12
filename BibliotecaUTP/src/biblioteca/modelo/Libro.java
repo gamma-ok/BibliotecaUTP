@@ -7,19 +7,21 @@ public abstract class Libro {
     private String isbn; // Codigo
     private String titulo;
     private String autor;
-    private double precio;
-    private int stock;
+    private double precioCompra;
+    private double precioVenta;
+    private int cantidad;
     private int anioPublicacion;
     private String tipoLibro;
 
     // Constructor parametrizado
-    public Libro(int idLibro, String isbn, String titulo, String autor, double precio, int stock, int anioPublicacion, String tipoLibro) {
+    public Libro(int idLibro, String isbn, String titulo, String autor, double precioCompra, double precioVenta, int cantidad, int anioPublicacion, String tipoLibro) {
         this.idLibro = idLibro;
         this.isbn = isbn;
         this.titulo = titulo;
         this.autor = autor;
-        this.precio = precio;
-        this.stock = stock;
+        this.precioCompra = precioCompra;
+        this.precioVenta = precioVenta;
+        this.cantidad = cantidad;
         this.anioPublicacion = anioPublicacion;
         this.tipoLibro = tipoLibro;
     }
@@ -57,20 +59,28 @@ public abstract class Libro {
         this.autor = autor;
     }
 
-    public double getPrecio() {
-        return precio;
+    public double getPrecioCompra() {
+        return precioCompra;
     }
 
-    public void setPrecio(double precio) {
-        this.precio = precio;
+    public void setPrecioCompra(double precioCompra) {
+        this.precioCompra = precioCompra;
     }
 
-    public int getStock() {
-        return stock;
+    public double getPrecioVenta() {
+        return precioVenta;
     }
 
-    public void setStock(int stock) {
-        this.stock = stock;
+    public void setPrecioVenta(double precioVenta) {
+        this.precioVenta = precioVenta;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
     }
 
     public int getAnioPublicacion() {
@@ -89,7 +99,7 @@ public abstract class Libro {
         this.tipoLibro = tipoLibro;
     }
 
-    // Metodos abstracto
+    // Metodos abstractos
     public abstract double calcularPrecioFinal();
 
     public abstract String obtenerDetalle();

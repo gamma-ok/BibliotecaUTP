@@ -29,7 +29,6 @@ public class UsuarioController implements ActionListener {
         listarTabla();
     }
 
-    // Validar campos vacíos
     private boolean camposVacios() {
         return vista.txtDni.getText().trim().isEmpty()
                 || vista.txtNombre.getText().trim().isEmpty()
@@ -92,7 +91,6 @@ public class UsuarioController implements ActionListener {
             int confirmar = JOptionPane.showConfirmDialog(vista, "¿Estás seguro de eliminar a este cliente?", "Confirmación", JOptionPane.YES_NO_OPTION);
 
             if (confirmar == JOptionPane.YES_OPTION) {
-                // DAO maneja la excepción de FK
                 if (dao.eliminar(dni)) {
                     JOptionPane.showMessageDialog(vista, "Cliente eliminado.");
                     limpiarVista();
