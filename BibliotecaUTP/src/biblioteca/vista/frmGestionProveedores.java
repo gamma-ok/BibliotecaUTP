@@ -27,7 +27,7 @@ public class frmGestionProveedores extends javax.swing.JFrame {
         txtIdProveedor.setVisible(false);
         id.setVisible(false);
 
-        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("../recursos/iconLibreriaFrm.png"));
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("../recursos/iconBibliotecaFrm.png"));
         this.setIconImage(icon);
 
         String[] titulo = new String[]{"Nombre", "Apellido", "Teléfono", "Correo", "RUC", "Dirección"};

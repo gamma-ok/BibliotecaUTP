@@ -27,7 +27,7 @@ public class frmGestionUsuarios extends javax.swing.JFrame {
         txtIdCliente.setVisible(false);
         id.setVisible(false);
 
-        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("../recursos/iconLibreriaFrm.png"));
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("../recursos/iconBibliotecaFrm.png"));
         this.setIconImage(icon);
 
         String[] titulo = new String[]{"Nombre", "Apellido", "DNI", "Celular", "Correo", "Dirección"};

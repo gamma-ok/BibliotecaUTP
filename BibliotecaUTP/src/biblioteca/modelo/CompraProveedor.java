@@ -13,8 +13,9 @@ public class CompraProveedor {
     private double precioUnitario;
     private double montoTotal;
 
-    // Constructor parametrizado
-    public CompraProveedor(int idCompra, Proveedor proveedor, Libro libro, LocalDate fechaEntrega, int cantidad, double precioUnitario) {
+    // Constructor para REGISTRAR nuevas compras (Lógica de formulario)
+    public CompraProveedor(int idCompra, Proveedor proveedor, Libro libro, LocalDate fechaEntrega,
+            int cantidad, double precioUnitario) {
         this.idCompra = idCompra;
         this.proveedor = proveedor;
         this.libro = libro;
@@ -22,6 +23,18 @@ public class CompraProveedor {
         this.cantidad = cantidad;
         this.precioUnitario = precioUnitario;
         this.montoTotal = this.cantidad * this.precioUnitario; // MontoTotal automatico al crear el objeto
+    }
+
+    // Constructor para RECUPERAR compras de la BD (incluye montoTotal)
+    public CompraProveedor(int idCompra, Proveedor proveedor, Libro libro, LocalDate fechaEntrega,
+            int cantidad, double precioUnitario, double montoTotal) {
+        this.idCompra = idCompra;
+        this.proveedor = proveedor;
+        this.libro = libro;
+        this.fechaEntrega = fechaEntrega;
+        this.cantidad = cantidad;
+        this.precioUnitario = precioUnitario;
+        this.montoTotal = montoTotal;
     }
 
     // Getters y Setters

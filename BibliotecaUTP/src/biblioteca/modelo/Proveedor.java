@@ -21,6 +21,12 @@ public class Proveedor implements IValidar {
         this.ruc = ruc;
         this.direccion = direccion;
     }
+    
+    // Constructor simplificado para ComboBox
+    public Proveedor(int idProveedor, String ruc) {
+        this.idProveedor = idProveedor;
+        this.ruc = ruc;
+    }
 
     // Getters y Setters
     public int getIdProveedor() {
@@ -83,7 +89,7 @@ public class Proveedor implements IValidar {
     @Override
     public boolean validarDatos() {
         // Validaciones: RUC de 11 dígitos, telefono de 9 dígitos, uso del @ en correo
-        boolean telefonoValido = (telefono != null && telefono.length() >= 9);
+        boolean telefonoValido = (telefono != null && telefono.length() == 8);
         boolean correoValido = (correo != null && correo.contains("@"));
         boolean rucValido = (ruc != null && ruc.length() == 11);
 

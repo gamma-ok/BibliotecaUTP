@@ -18,7 +18,7 @@ public class PrestamoController implements ActionListener {
 
     private final frmGestionPrestamos vista;
     private final PrestamoDAO pDao = new PrestamoDAO();
-    private final Map<String, Usuario> mapaClientes = new HashMap<>();
+    private final Map<String, Usuario> mapaUsuarios = new HashMap<>();
     private final Map<String, Libro> mapaLibros = new HashMap<>();
 
     public PrestamoController(frmGestionPrestamos vista, UsuarioDAO cDao, LibroDAO lDao) {
@@ -27,7 +27,7 @@ public class PrestamoController implements ActionListener {
         // Carga de datos del ComboBox
         for (Usuario c : cDao.listar()) {
             vista.cbDniUsuario.addItem(c.getDni());
-            mapaClientes.put(c.getDni(), c);
+            mapaUsuarios.put(c.getDni(), c);
         }
 
         // Carga de datos del ComboBox
@@ -112,6 +112,7 @@ public class PrestamoController implements ActionListener {
                 JOptionPane.showMessageDialog(vista, "Error al guardar el préstamo.");
             }
         } catch (Exception ex) {
+            ex.printStackTrace();
             JOptionPane.showMessageDialog(vista, "Ocurrió un error inesperado.");
         }
     }
@@ -145,11 +146,12 @@ public class PrestamoController implements ActionListener {
     }
 
     private Prestamo crearPrestamoDesdeVista(int id) {
-        Usuario c = mapaClientes.get(vista.cbDniUsuario.getSelectedItem());
+        Usuario c = mapaUsuarios.get(vista.cbDniUsuario.getSelectedItem());
         Libro l = mapaLibros.get(vista.cbIsbnLibro.getSelectedItem());
         LocalDate fP = vista.dtFechaPrestamo.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate fD = vista.dtFechaDevolucion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         double monto = Double.parseDouble(vista.txtMontoPagado.getText());
+        
         return new Prestamo(id, c, l, fP, fD, vista.cbEstado.getSelectedItem().toString(), monto);
     }
 
@@ -158,11 +160,22 @@ public class PrestamoController implements ActionListener {
         String isbn = (String) vista.cbIsbnLibro.getSelectedItem();
 
         if (dni != null && !dni.equals("Seleccione...") && isbn != null && !isbn.equals("Seleccione...")) {
-            Usuario c = mapaClientes.get(dni);
+            Usuario c = mapaUsuarios.get(dni);
             Libro l = mapaLibros.get(isbn);
-            vista.taResumen.setText("DNI Cliente: " + dni + "\nNombre: " + c.getNombre() + " " + c.getApellido()
-                    + "\nISBN Libro: " + isbn + "\nTítulo: " + l.getTitulo()
-                    + "\nPrecio base: S/ " + String.format("%.2f", l.getPrecio()));
+            vista.taResumen.setText(
+                            "USUARIO:" + 
+                            "\nDNI Usuario: " + dni + 
+                            "\nNombre: " + c.getNombre() + 
+                            "\nApellido: " + c.getApellido() + 
+                            "\nCelular: " + c.getCelular() + 
+                            "\nCorreo: " + c.getCorreo() + 
+                            "\nDirección: " + c.getDireccion()+ 
+                            "\n\nLIBRO:" + 
+                            "\nISBN Libro: " + isbn + 
+                            "\nTítulo: " + l.getTitulo() + 
+                            "\nAutor: " + l.getAutor()+ 
+                            "\nPrecio: S/" + String.format("%.2f", l.getPrecio()) +
+                            "\nStock: " + l.getStock());
         }
     }
 
@@ -181,6 +194,7 @@ public class PrestamoController implements ActionListener {
         DefaultTableModel model = (DefaultTableModel) vista.tGestionPrestamos.getModel();
         model.setRowCount(0);
         java.time.format.DateTimeFormatter formatter = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        
         for (Prestamo p : pDao.listar()) {
             model.addRow(new Object[]{p.getIdPrestamo(), p.getUsuario().getDni(), p.getLibro().getIsbn(),
                 p.getFechaPrestamo().format(formatter), p.getFechaDevolucion().format(formatter),

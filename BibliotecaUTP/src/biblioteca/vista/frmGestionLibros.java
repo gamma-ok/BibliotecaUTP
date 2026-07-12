@@ -30,7 +30,7 @@ public class frmGestionLibros extends javax.swing.JFrame {
         txtIdLibro.setVisible(false);
         id.setVisible(false);
 
-        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("../recursos/iconLibreriaFrm.png"));
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("../recursos/iconBibliotecaFrm.png"));
         this.setIconImage(icon);
 
         String[] titulo = new String[]{"ISBN", "T. Libro", "Título", "Autor", "Precio", "Stock", "A. Publicación"};

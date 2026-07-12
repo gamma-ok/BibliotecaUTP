@@ -8,14 +8,18 @@ import biblioteca.controlador.UsuarioController;
 import biblioteca.controlador.LibroController;
 import biblioteca.controlador.PrestamoController;
 import biblioteca.controlador.ProveedorController;
+import biblioteca.controlador.CompraProveedorController;
 import biblioteca.datos.UsuarioDAO;
 import biblioteca.datos.LibroDAO;
 import biblioteca.datos.PrestamoDAO;
 import biblioteca.datos.ProveedorDAO;
+import biblioteca.datos.CompraProveedorDAO;
 import biblioteca.modelo.Usuario;
 import biblioteca.modelo.Libro;
 import biblioteca.modelo.Novela;
 import biblioteca.modelo.Proveedor;
+import biblioteca.modelo.CompraProveedor;
+import java.time.LocalDate;
 
 public class MenuPrincipal extends javax.swing.JFrame {
 
@@ -24,7 +28,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         setResizable(false);
         transparenciaButton();
 
-        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("../recursos/iconLibreriaFrm.png")); //icon del frm
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("../recursos/iconBibliotecaFrm.png")); //icon del frm
         this.setIconImage(icon);
 
         this.setLocationRelativeTo(null);
@@ -34,6 +38,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnGestionProveedores.setOpaque(false);
         btnGestionProveedores.setContentAreaFilled(false);
         btnGestionProveedores.setBorderPainted(false);
+        btnGestionCompras.setOpaque(false);
+        btnGestionCompras.setContentAreaFilled(false);
+        btnGestionCompras.setBorderPainted(false);
         btnGestionLibros.setOpaque(false);
         btnGestionLibros.setContentAreaFilled(false);
         btnGestionLibros.setBorderPainted(false);
@@ -53,6 +60,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         info = new javax.swing.JLabel();
         btnGestionProveedores = new javax.swing.JButton();
         bgBtnGestionProveedores = new javax.swing.JLabel();
+        btnGestionCompras = new javax.swing.JButton();
+        bgBtnGestionCompras = new javax.swing.JLabel();
         btnGestionLibros = new javax.swing.JButton();
         bgBtnGestionLibros = new javax.swing.JLabel();
         btnGestionUsuarios = new javax.swing.JButton();
@@ -87,7 +96,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnGestionProveedores.setBackground(new java.awt.Color(255, 140, 5));
         btnGestionProveedores.setFont(new java.awt.Font("Trebuchet MS", 1, 20)); // NOI18N
         btnGestionProveedores.setForeground(new java.awt.Color(255, 255, 255));
-        btnGestionProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/biblioteca/recursos/iconGestionLibros.png"))); // NOI18N
+        btnGestionProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/biblioteca/recursos/iconGestionProveedores.png"))); // NOI18N
         btnGestionProveedores.setText(" Gestión de Proveedores");
         btnGestionProveedores.setBorder(null);
         btnGestionProveedores.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -98,12 +107,33 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 btnGestionProveedoresActionPerformed(evt);
             }
         });
-        getContentPane().add(btnGestionProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 250, 280, 50));
+        getContentPane().add(btnGestionProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 270, 280, 50));
 
         bgBtnGestionProveedores.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         bgBtnGestionProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/biblioteca/recursos/bgBtnMenuFrm.png"))); // NOI18N
         bgBtnGestionProveedores.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(bgBtnGestionProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 420, 70));
+        getContentPane().add(bgBtnGestionProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, 420, 70));
+
+        btnGestionCompras.setBackground(new java.awt.Color(255, 140, 5));
+        btnGestionCompras.setFont(new java.awt.Font("Trebuchet MS", 1, 20)); // NOI18N
+        btnGestionCompras.setForeground(new java.awt.Color(255, 255, 255));
+        btnGestionCompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/biblioteca/recursos/iconGestionCompras.png"))); // NOI18N
+        btnGestionCompras.setText(" Gestión de Compras");
+        btnGestionCompras.setBorder(null);
+        btnGestionCompras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGestionCompras.setFocusPainted(false);
+        btnGestionCompras.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnGestionCompras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGestionComprasActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnGestionCompras, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 470, 280, 50));
+
+        bgBtnGestionCompras.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        bgBtnGestionCompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/biblioteca/recursos/bgBtnMenuFrm.png"))); // NOI18N
+        bgBtnGestionCompras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        getContentPane().add(bgBtnGestionCompras, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 460, 420, 70));
 
         btnGestionLibros.setBackground(new java.awt.Color(255, 140, 5));
         btnGestionLibros.setFont(new java.awt.Font("Trebuchet MS", 1, 20)); // NOI18N
@@ -119,12 +149,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 btnGestionLibrosActionPerformed(evt);
             }
         });
-        getContentPane().add(btnGestionLibros, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 400, 280, 50));
+        getContentPane().add(btnGestionLibros, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 370, 280, 50));
 
         bgBtnGestionLibros.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         bgBtnGestionLibros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/biblioteca/recursos/bgBtnMenuFrm.png"))); // NOI18N
         bgBtnGestionLibros.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(bgBtnGestionLibros, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 390, 420, 70));
+        getContentPane().add(bgBtnGestionLibros, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 360, 420, 70));
 
         btnGestionUsuarios.setBackground(new java.awt.Color(255, 140, 5));
         btnGestionUsuarios.setFont(new java.awt.Font("Trebuchet MS", 1, 20)); // NOI18N
@@ -140,12 +170,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 btnGestionUsuariosActionPerformed(evt);
             }
         });
-        getContentPane().add(btnGestionUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 520, 280, 50));
+        getContentPane().add(btnGestionUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 570, 280, 50));
 
         bgBtnGestionUsuarios.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         bgBtnGestionUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/biblioteca/recursos/bgBtnMenuFrm.png"))); // NOI18N
         bgBtnGestionUsuarios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(bgBtnGestionUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 510, 420, 70));
+        getContentPane().add(bgBtnGestionUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 560, 420, 70));
 
         btnGestionPrestamos.setBackground(new java.awt.Color(255, 140, 5));
         btnGestionPrestamos.setFont(new java.awt.Font("Trebuchet MS", 1, 20)); // NOI18N
@@ -161,12 +191,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 btnGestionPrestamosActionPerformed(evt);
             }
         });
-        getContentPane().add(btnGestionPrestamos, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 640, 280, 50));
+        getContentPane().add(btnGestionPrestamos, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 670, 280, 50));
 
         bgBtnGestionPrestamos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         bgBtnGestionPrestamos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/biblioteca/recursos/bgBtnMenuFrm.png"))); // NOI18N
         bgBtnGestionPrestamos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(bgBtnGestionPrestamos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 630, 420, 70));
+        getContentPane().add(bgBtnGestionPrestamos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 660, 420, 70));
 
         copyright.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
         copyright.setForeground(new java.awt.Color(255, 255, 255));
@@ -265,6 +295,25 @@ public class MenuPrincipal extends javax.swing.JFrame {
         this.dispose(); // Cerrar vista actual
     }//GEN-LAST:event_btnGestionProveedoresActionPerformed
 
+    private void btnGestionComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionComprasActionPerformed
+        // Instanciamos vista
+        frmGestionCompras vistaCompras = new frmGestionCompras();
+
+        // Instanciar los DAOs
+        CompraProveedorDAO pDao = new CompraProveedorDAO();
+        ProveedorDAO cDao = new ProveedorDAO();
+        LibroDAO lDao = new LibroDAO();
+
+        // Instanciar controlador
+        // Llenado del combo box en el frm
+        new CompraProveedorController(vistaCompras, cDao, lDao);
+
+        // Mostrar frm
+        vistaCompras.setVisible(true);
+        vistaCompras.setLocationRelativeTo(null); // Centrar frm
+        this.dispose(); // Cerrar vista actual
+    }//GEN-LAST:event_btnGestionComprasActionPerformed
+
     private void abrirURL(String url) {
         try {
             java.awt.Desktop.getDesktop().browse(new URI(url));
@@ -283,10 +332,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel bg;
     private javax.swing.JLabel bg1;
     private javax.swing.JLabel bg2;
+    private javax.swing.JLabel bgBtnGestionCompras;
     private javax.swing.JLabel bgBtnGestionLibros;
     private javax.swing.JLabel bgBtnGestionPrestamos;
     private javax.swing.JLabel bgBtnGestionProveedores;
     private javax.swing.JLabel bgBtnGestionUsuarios;
+    private javax.swing.JButton btnGestionCompras;
     private javax.swing.JButton btnGestionLibros;
     private javax.swing.JButton btnGestionPrestamos;
     private javax.swing.JButton btnGestionProveedores;
