@@ -23,7 +23,7 @@ Este proyecto es una aplicación de escritorio desarrollada en Java que permite 
 ![Diagrama UML](BibliotecaUTP/src/biblioteca/recursos/Diagrama%20UML.jpg)
 
 ## Diagrama BD
-![Diagrama BD](BibliotecaUTP/src/biblioteca/recursos/Diagrama%20BD.png)
+![Diagrama BD](BibliotecaUTP/src/biblioteca/recursos/Diagrama%20BD.jpg)
 
 ## Instalación y Configuración
 1. Clona este repositorio:
